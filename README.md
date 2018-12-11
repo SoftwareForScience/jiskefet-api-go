@@ -19,10 +19,6 @@ export JISKEFET_API_TOKEN=jnk5vh43785ycj4gdvlvm84fg...
 go run main.go
 ```
 
-hostUrl := os.Getenv("JISKEFET_HOST")
-	apiPath := os.Getenv("JISKEFET_PATH")
-	apiToken := os.Getenv("JISKEFET_API_TOKEN")
-
 
 ## Code generation
 To (re)generate the client code:
