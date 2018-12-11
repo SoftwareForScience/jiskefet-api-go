@@ -45,7 +45,7 @@ func NewGetLogsIDOK() *GetLogsIDOK {
 OK
 */
 type GetLogsIDOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *GetLogsIDOK) Error() string {

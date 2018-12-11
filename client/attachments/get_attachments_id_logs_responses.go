@@ -45,7 +45,7 @@ func NewGetAttachmentsIDLogsOK() *GetAttachmentsIDLogsOK {
 OK
 */
 type GetAttachmentsIDLogsOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *GetAttachmentsIDLogsOK) Error() string {

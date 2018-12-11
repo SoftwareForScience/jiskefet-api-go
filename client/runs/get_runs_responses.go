@@ -45,7 +45,7 @@ func NewGetRunsOK() *GetRunsOK {
 OK
 */
 type GetRunsOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *GetRunsOK) Error() string {

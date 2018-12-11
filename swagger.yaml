@@ -135,7 +135,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - runs
         security:
@@ -155,7 +155,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - runs
         security:
@@ -180,7 +180,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - runs
         security:
@@ -278,7 +278,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - logs
         security:
@@ -298,7 +298,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - logs
         security:
@@ -323,7 +323,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - logs
         security:
@@ -362,7 +362,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - attachments
         security:
@@ -377,7 +377,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - subsystems
         security:
@@ -397,7 +397,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - subsystems
         security:
@@ -417,7 +417,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - users
         security:
@@ -437,7 +437,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - users
         security:
@@ -481,7 +481,7 @@
           '200':
             description: User has successfully authenticated and a JWT has been given as a response.
             schema:
-              type: string
+              type: object
           '401':
             description: User is unauthorized due to an invalid Authorization Grant.
           '422':
@@ -500,7 +500,7 @@
           '200':
             description: User successfully received profile information.
             schema:
-              type: string
+              type: object
           '401':
             description: User is unauthorized
         tags:
@@ -521,7 +521,7 @@
           '200':
             description: OK
             schema:
-              type: string
+              type: object
         tags:
           - overview
         security:

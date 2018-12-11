@@ -52,7 +52,7 @@ func NewGetProfileOK() *GetProfileOK {
 User successfully received profile information.
 */
 type GetProfileOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *GetProfileOK) Error() string {

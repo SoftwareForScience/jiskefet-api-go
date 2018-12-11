@@ -59,7 +59,7 @@ func NewGetAuthOK() *GetAuthOK {
 User has successfully authenticated and a JWT has been given as a response.
 */
 type GetAuthOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *GetAuthOK) Error() string {

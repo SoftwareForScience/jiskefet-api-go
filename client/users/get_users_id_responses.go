@@ -45,7 +45,7 @@ func NewGetUsersIDOK() *GetUsersIDOK {
 OK
 */
 type GetUsersIDOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *GetUsersIDOK) Error() string {

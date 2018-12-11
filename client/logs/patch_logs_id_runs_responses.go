@@ -45,7 +45,7 @@ func NewPatchLogsIDRunsOK() *PatchLogsIDRunsOK {
 OK
 */
 type PatchLogsIDRunsOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *PatchLogsIDRunsOK) Error() string {

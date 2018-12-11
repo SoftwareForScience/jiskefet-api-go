@@ -45,7 +45,7 @@ func NewGetOverviewOK() *GetOverviewOK {
 OK
 */
 type GetOverviewOK struct {
-	Payload string
+	Payload interface{}
 }
 
 func (o *GetOverviewOK) Error() string {
