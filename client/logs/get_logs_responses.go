@@ -7,6 +7,7 @@ package logs
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -41,16 +42,22 @@ func NewGetLogsOK() *GetLogsOK {
 
 /*GetLogsOK handles this case with default header values.
 
-GetLogsOK get logs o k
+OK
 */
 type GetLogsOK struct {
+	Payload string
 }
 
 func (o *GetLogsOK) Error() string {
-	return fmt.Sprintf("[GET /logs][%d] getLogsOK ", 200)
+	return fmt.Sprintf("[GET /logs][%d] getLogsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

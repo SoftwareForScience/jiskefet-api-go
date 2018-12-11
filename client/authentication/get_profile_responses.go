@@ -7,6 +7,7 @@ package authentication
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -51,13 +52,19 @@ func NewGetProfileOK() *GetProfileOK {
 User successfully received profile information.
 */
 type GetProfileOK struct {
+	Payload string
 }
 
 func (o *GetProfileOK) Error() string {
-	return fmt.Sprintf("[GET /profile][%d] getProfileOK ", 200)
+	return fmt.Sprintf("[GET /profile][%d] getProfileOK  %+v", 200, o.Payload)
 }
 
 func (o *GetProfileOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

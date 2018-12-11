@@ -7,6 +7,7 @@ package subsystems
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -41,16 +42,22 @@ func NewGetSubsystemsOK() *GetSubsystemsOK {
 
 /*GetSubsystemsOK handles this case with default header values.
 
-GetSubsystemsOK get subsystems o k
+OK
 */
 type GetSubsystemsOK struct {
+	Payload string
 }
 
 func (o *GetSubsystemsOK) Error() string {
-	return fmt.Sprintf("[GET /subsystems][%d] getSubsystemsOK ", 200)
+	return fmt.Sprintf("[GET /subsystems][%d] getSubsystemsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetSubsystemsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

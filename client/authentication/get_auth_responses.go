@@ -7,6 +7,7 @@ package authentication
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -58,13 +59,19 @@ func NewGetAuthOK() *GetAuthOK {
 User has successfully authenticated and a JWT has been given as a response.
 */
 type GetAuthOK struct {
+	Payload string
 }
 
 func (o *GetAuthOK) Error() string {
-	return fmt.Sprintf("[GET /auth][%d] getAuthOK ", 200)
+	return fmt.Sprintf("[GET /auth][%d] getAuthOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAuthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

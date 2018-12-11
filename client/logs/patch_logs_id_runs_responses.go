@@ -7,6 +7,7 @@ package logs
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -41,16 +42,22 @@ func NewPatchLogsIDRunsOK() *PatchLogsIDRunsOK {
 
 /*PatchLogsIDRunsOK handles this case with default header values.
 
-PatchLogsIDRunsOK patch logs Id runs o k
+OK
 */
 type PatchLogsIDRunsOK struct {
+	Payload string
 }
 
 func (o *PatchLogsIDRunsOK) Error() string {
-	return fmt.Sprintf("[PATCH /logs/{id}/runs][%d] patchLogsIdRunsOK ", 200)
+	return fmt.Sprintf("[PATCH /logs/{id}/runs][%d] patchLogsIdRunsOK  %+v", 200, o.Payload)
 }
 
 func (o *PatchLogsIDRunsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

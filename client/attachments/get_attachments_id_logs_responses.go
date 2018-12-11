@@ -7,6 +7,7 @@ package attachments
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -41,16 +42,22 @@ func NewGetAttachmentsIDLogsOK() *GetAttachmentsIDLogsOK {
 
 /*GetAttachmentsIDLogsOK handles this case with default header values.
 
-GetAttachmentsIDLogsOK get attachments Id logs o k
+OK
 */
 type GetAttachmentsIDLogsOK struct {
+	Payload string
 }
 
 func (o *GetAttachmentsIDLogsOK) Error() string {
-	return fmt.Sprintf("[GET /attachments/{id}/logs][%d] getAttachmentsIdLogsOK ", 200)
+	return fmt.Sprintf("[GET /attachments/{id}/logs][%d] getAttachmentsIdLogsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetAttachmentsIDLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

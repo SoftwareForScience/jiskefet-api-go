@@ -7,6 +7,7 @@ package users
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -41,16 +42,22 @@ func NewGetUsersIDTokensOK() *GetUsersIDTokensOK {
 
 /*GetUsersIDTokensOK handles this case with default header values.
 
-GetUsersIDTokensOK get users Id tokens o k
+OK
 */
 type GetUsersIDTokensOK struct {
+	Payload string
 }
 
 func (o *GetUsersIDTokensOK) Error() string {
-	return fmt.Sprintf("[GET /users/{id}/tokens][%d] getUsersIdTokensOK ", 200)
+	return fmt.Sprintf("[GET /users/{id}/tokens][%d] getUsersIdTokensOK  %+v", 200, o.Payload)
 }
 
 func (o *GetUsersIDTokensOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
