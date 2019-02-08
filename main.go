@@ -8,10 +8,10 @@ import (
 	"github.com/go-openapi/strfmt"
 	//"github.com/go-openapi/spec"
 
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/runs"
-	runsclient "github.com/PascalBoeschoten/jiskefet-api-go/client/runs"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/runs"
+	runsclient "github.com/SoftwareForScience/jiskefet-api-go/client/runs"
 
-	//apiclient "github.com/PascalBoeschoten/jiskefet-api-go/client"
+	//apiclient "github.com/SoftwareForScience/jiskefet-api-go/client"
 	httptransport "github.com/go-openapi/runtime/client"
 )
 
