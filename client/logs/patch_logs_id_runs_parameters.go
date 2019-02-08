@@ -17,7 +17,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/PascalBoeschoten/jiskefet-api-go/models"
+	models "github.com/SoftwareForScience/jiskefet-api-go/models"
 )
 
 // NewPatchLogsIDRunsParams creates a new PatchLogsIDRunsParams object

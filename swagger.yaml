@@ -531,36 +531,25 @@
         consumes:
           - application/json
   definitions:
-    Date:
-      type: string
-      format: date-time
     CreateRunDto:
       type: object
       properties:
         timeO2Start:
-          title: Date
-          allOf:
-            - $ref: '#/definitions/Date'
-            - example: '2018-11-26T16:43:22.279Z'
-              description: Current Date
+          type: string
+          format: date-time
+          example: '2018-11-26T16:43:22.279Z'
         timeTrgStart:
-          title: Date
-          allOf:
-            - $ref: '#/definitions/Date'
-            - example: '2018-11-26T16:43:22.283Z'
-              description: Current Date
+          type: string
+          format: date-time
+          example: '2018-11-26T16:43:22.279Z'
         timeO2End:
-          title: Date
-          allOf:
-            - $ref: '#/definitions/Date'
-            - example: '2018-11-26T16:43:22.288Z'
-              description: Current Date
+          type: string
+          format: date-time
+          example: '2018-11-26T16:43:22.279Z'
         timeTrgEnd:
-          title: Date
-          allOf:
-            - $ref: '#/definitions/Date'
-            - example: '2018-11-26T16:43:22.289Z'
-              description: Current Date
+          type: string
+          format: date-time
+          example: '2018-11-26T16:43:22.279Z'
         runType:
           type: string
           example:
@@ -749,3 +738,4 @@
         - editEorReason
         - subSystemHash
         - subSystemTokenDescription
+

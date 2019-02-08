@@ -57,25 +57,25 @@ type CreateRunDto struct {
 	// Required: true
 	RunType *string `json:"runType"`
 
-	// Date
+	// time o2 end
 	// Required: true
 	// Format: date-time
-	TimeO2End Date `json:"timeO2End"`
+	TimeO2End *strfmt.DateTime `json:"timeO2End"`
 
-	// Date
+	// time o2 start
 	// Required: true
 	// Format: date-time
-	TimeO2Start Date `json:"timeO2Start"`
+	TimeO2Start *strfmt.DateTime `json:"timeO2Start"`
 
-	// Date
+	// time trg end
 	// Required: true
 	// Format: date-time
-	TimeTrgEnd Date `json:"timeTrgEnd"`
+	TimeTrgEnd *strfmt.DateTime `json:"timeTrgEnd"`
 
-	// Date
+	// time trg start
 	// Required: true
 	// Format: date-time
-	TimeTrgStart Date `json:"timeTrgStart"`
+	TimeTrgStart *strfmt.DateTime `json:"timeTrgStart"`
 }
 
 // Validate validates this create run dto
@@ -236,10 +236,11 @@ func (m *CreateRunDto) validateRunType(formats strfmt.Registry) error {
 
 func (m *CreateRunDto) validateTimeO2End(formats strfmt.Registry) error {
 
-	if err := m.TimeO2End.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("timeO2End")
-		}
+	if err := validate.Required("timeO2End", "body", m.TimeO2End); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("timeO2End", "body", "date-time", m.TimeO2End.String(), formats); err != nil {
 		return err
 	}
 
@@ -248,10 +249,11 @@ func (m *CreateRunDto) validateTimeO2End(formats strfmt.Registry) error {
 
 func (m *CreateRunDto) validateTimeO2Start(formats strfmt.Registry) error {
 
-	if err := m.TimeO2Start.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("timeO2Start")
-		}
+	if err := validate.Required("timeO2Start", "body", m.TimeO2Start); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("timeO2Start", "body", "date-time", m.TimeO2Start.String(), formats); err != nil {
 		return err
 	}
 
@@ -260,10 +262,11 @@ func (m *CreateRunDto) validateTimeO2Start(formats strfmt.Registry) error {
 
 func (m *CreateRunDto) validateTimeTrgEnd(formats strfmt.Registry) error {
 
-	if err := m.TimeTrgEnd.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("timeTrgEnd")
-		}
+	if err := validate.Required("timeTrgEnd", "body", m.TimeTrgEnd); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("timeTrgEnd", "body", "date-time", m.TimeTrgEnd.String(), formats); err != nil {
 		return err
 	}
 
@@ -272,10 +275,11 @@ func (m *CreateRunDto) validateTimeTrgEnd(formats strfmt.Registry) error {
 
 func (m *CreateRunDto) validateTimeTrgStart(formats strfmt.Registry) error {
 
-	if err := m.TimeTrgStart.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("timeTrgStart")
-		}
+	if err := validate.Required("timeTrgStart", "body", m.TimeTrgStart); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("timeTrgStart", "body", "date-time", m.TimeTrgStart.String(), formats); err != nil {
 		return err
 	}
 

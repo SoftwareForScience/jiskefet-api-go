@@ -11,13 +11,13 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/attachments"
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/authentication"
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/logs"
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/overview"
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/runs"
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/subsystems"
-	"github.com/PascalBoeschoten/jiskefet-api-go/client/users"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/attachments"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/authentication"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/logs"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/overview"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/runs"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/subsystems"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/users"
 )
 
 // Default jiskefet HTTP client.

@@ -16,7 +16,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/PascalBoeschoten/jiskefet-api-go/models"
+	models "github.com/SoftwareForScience/jiskefet-api-go/models"
 )
 
 // NewPostLogsParams creates a new PostLogsParams object
