@@ -4,7 +4,7 @@ This is a Go client API for Jiskefet based on the go-swagger code generator (htt
 
 ## Setup
 ```
-go get -u -v github.com/PascalBoeschoten/jiskefet-api-go
+go get -u -v github.com/SoftwareForScience/jiskefet-api-go
 ```
 
 
@@ -12,7 +12,7 @@ go get -u -v github.com/PascalBoeschoten/jiskefet-api-go
 If your api is at `http://myhost.server.address/api`
 
 ```
-cd $GOPATH/src/github.com/PascalBoeschoten/jiskefet-api-go
+cd $GOPATH/src/github.com/SoftwareForScience/jiskefet-api-go
 export JISKEFET_HOST=myhost.server.address
 export JISKEFET_PATH=api
 export JISKEFET_API_TOKEN=jnk5vh43785ycj4gdvlvm84fg...
