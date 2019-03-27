@@ -17,19 +17,31 @@ import (
 // swagger:model CreateAttachmentDto
 type CreateAttachmentDto struct {
 
-	// What kind of log is it?
+	// Content type header containing file mime
+	// Required: true
+	ContentType *string `json:"contentType"`
+
+	// The base64 encoded file data.
 	// Required: true
 	FileData *string `json:"fileData"`
 
-	// What kind of log is it?
+	// What kind of file is it?
 	// Required: true
 	FileMime *string `json:"fileMime"`
+
+	// Name of the uploaded file.
+	// Required: true
+	FileName *string `json:"fileName"`
+
+	// File size in bytes.
+	// Required: true
+	FileSize *int64 `json:"fileSize"`
 
 	// The id of the corresponding Log
 	// Required: true
 	LogID *int64 `json:"logId"`
 
-	// What kind of log is it?
+	// What is the name of the file?
 	// Required: true
 	Title *string `json:"title"`
 }
@@ -38,11 +50,23 @@ type CreateAttachmentDto struct {
 func (m *CreateAttachmentDto) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateContentType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateFileData(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateFileMime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFileName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFileSize(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,6 +84,15 @@ func (m *CreateAttachmentDto) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *CreateAttachmentDto) validateContentType(formats strfmt.Registry) error {
+
+	if err := validate.Required("contentType", "body", m.ContentType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *CreateAttachmentDto) validateFileData(formats strfmt.Registry) error {
 
 	if err := validate.Required("fileData", "body", m.FileData); err != nil {
@@ -72,6 +105,24 @@ func (m *CreateAttachmentDto) validateFileData(formats strfmt.Registry) error {
 func (m *CreateAttachmentDto) validateFileMime(formats strfmt.Registry) error {
 
 	if err := validate.Required("fileMime", "body", m.FileMime); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateAttachmentDto) validateFileName(formats strfmt.Registry) error {
+
+	if err := validate.Required("fileName", "body", m.FileName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateAttachmentDto) validateFileSize(formats strfmt.Registry) error {
+
+	if err := validate.Required("fileSize", "body", m.FileSize); err != nil {
 		return err
 	}
 

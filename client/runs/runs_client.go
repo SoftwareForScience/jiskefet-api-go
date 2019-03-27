@@ -83,6 +83,35 @@ func (a *Client) GetRunsID(params *GetRunsIDParams, authInfo runtime.ClientAuthI
 }
 
 /*
+PatchRunsID patch runs ID API
+*/
+func (a *Client) PatchRunsID(params *PatchRunsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchRunsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchRunsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchRunsID",
+		Method:             "PATCH",
+		PathPattern:        "/runs/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PatchRunsIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchRunsIDOK), nil
+
+}
+
+/*
 PatchRunsIDLogs patch runs ID logs API
 */
 func (a *Client) PatchRunsIDLogs(params *PatchRunsIDLogsParams, authInfo runtime.ClientAuthInfoWriter) (*PatchRunsIDLogsOK, error) {

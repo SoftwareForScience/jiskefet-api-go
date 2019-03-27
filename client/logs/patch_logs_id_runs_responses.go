@@ -42,7 +42,7 @@ func NewPatchLogsIDRunsOK() *PatchLogsIDRunsOK {
 
 /*PatchLogsIDRunsOK handles this case with default header values.
 
-OK
+PatchLogsIDRunsOK patch logs Id runs o k
 */
 type PatchLogsIDRunsOK struct {
 	Payload interface{}

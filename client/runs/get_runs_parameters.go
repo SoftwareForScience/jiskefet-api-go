@@ -13,7 +13,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -136,12 +135,12 @@ type GetRunsParams struct {
 	  The quality of the run.
 
 	*/
-	RunQuality *int64
+	RunQuality *string
 	/*RunType
 	  The type of the run.
 
 	*/
-	RunType *int64
+	RunType *string
 	/*StartTimeO2End
 	  The lower bound of the timeO2End filter range.
 
@@ -312,24 +311,24 @@ func (o *GetRunsParams) SetRunNumber(runNumber *string) {
 }
 
 // WithRunQuality adds the runQuality to the get runs params
-func (o *GetRunsParams) WithRunQuality(runQuality *int64) *GetRunsParams {
+func (o *GetRunsParams) WithRunQuality(runQuality *string) *GetRunsParams {
 	o.SetRunQuality(runQuality)
 	return o
 }
 
 // SetRunQuality adds the runQuality to the get runs params
-func (o *GetRunsParams) SetRunQuality(runQuality *int64) {
+func (o *GetRunsParams) SetRunQuality(runQuality *string) {
 	o.RunQuality = runQuality
 }
 
 // WithRunType adds the runType to the get runs params
-func (o *GetRunsParams) WithRunType(runType *int64) *GetRunsParams {
+func (o *GetRunsParams) WithRunType(runType *string) *GetRunsParams {
 	o.SetRunType(runType)
 	return o
 }
 
 // SetRunType adds the runType to the get runs params
-func (o *GetRunsParams) SetRunType(runType *int64) {
+func (o *GetRunsParams) SetRunType(runType *string) {
 	o.RunType = runType
 }
 
@@ -548,11 +547,11 @@ func (o *GetRunsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	if o.RunQuality != nil {
 
 		// query param runQuality
-		var qrRunQuality int64
+		var qrRunQuality string
 		if o.RunQuality != nil {
 			qrRunQuality = *o.RunQuality
 		}
-		qRunQuality := swag.FormatInt64(qrRunQuality)
+		qRunQuality := qrRunQuality
 		if qRunQuality != "" {
 			if err := r.SetQueryParam("runQuality", qRunQuality); err != nil {
 				return err
@@ -564,11 +563,11 @@ func (o *GetRunsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	if o.RunType != nil {
 
 		// query param runType
-		var qrRunType int64
+		var qrRunType string
 		if o.RunType != nil {
 			qrRunType = *o.RunType
 		}
-		qRunType := swag.FormatInt64(qrRunType)
+		qRunType := qrRunType
 		if qRunType != "" {
 			if err := r.SetQueryParam("runType", qRunType); err != nil {
 				return err

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"time"
 
@@ -20,16 +21,16 @@ import (
 func main() {
 	fmt.Println("Hello Jiskefet")
 
-	hostUrl := os.Getenv("JISKEFET_HOST")
+	hostURL := os.Getenv("JISKEFET_HOST")
 	apiPath := os.Getenv("JISKEFET_PATH")
 	apiToken := os.Getenv("JISKEFET_API_TOKEN")
-	fmt.Printf("JISKEFET_HOST:      %s\n", hostUrl)
-	fmt.Printf("JISKEFET_PATH:  %s\n", apiPath)
+	fmt.Printf("JISKEFET_HOST: %s\n", hostURL)
+	fmt.Printf("JISKEFET_PATH: %s\n", apiPath)
 	fmt.Printf("JISKEFET_API_TOKEN: %s\n", apiToken)
 
 	// create the API client
 	//client := apiclient.New(httptransport.New("", "", nil), strfmt.Default)
-	client := runsclient.New(httptransport.New(hostUrl, apiPath, nil), strfmt.Default)
+	client := runsclient.New(httptransport.New(hostURL, apiPath, nil), strfmt.Default)
 
 	// make the authenticated request to get all items
 	bearerTokenAuth := httptransport.BearerToken(apiToken)
@@ -38,49 +39,60 @@ func main() {
 	// apiKeyHeaderAuth := httptransport.APIKeyAuth("X-API-TOKEN", "header", os.Getenv("API_KEY"))
 
 	{
-		startt, err := time.Parse(time.RFC3339, "2007-03-01T13:40:45Z")
-		if err != nil {
-			fmt.Println(err)
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		runNumber := int64(r1.Intn(10000))
+
+		// Start run
+		{
+			startt, err := time.Parse(time.RFC3339, "2007-03-01T13:40:45Z")
+			if err != nil {
+				fmt.Println(err)
+			}
+			start := strfmt.DateTime(startt)
+			runType := "TECHNICAL"
+			activityID := "go-api-example"
+			nDetectors := int64(123)
+			nFlps := int64(200)
+			nEpns := int64(1000)
+
+			params := runs.NewPostRunsParams()
+			params.CreateRunDto = new(models.CreateRunDto)
+			params.CreateRunDto.O2StartTime = &start
+			params.CreateRunDto.TrgStartTime = &start
+			params.CreateRunDto.ActivityID = &activityID
+			params.CreateRunDto.NDetectors = &nDetectors
+			params.CreateRunDto.NEpns = &nEpns
+			params.CreateRunDto.NFlps = &nFlps
+			params.CreateRunDto.RunNumber = &runNumber
+			params.CreateRunDto.RunType = &runType
+
+			_, err = client.PostRuns(params, bearerTokenAuth)
+			if err != nil {
+				fmt.Println(err)
+			}
 		}
 
-		endt, err := time.Parse(time.RFC3339, "2016-04-01T10:22:02Z")
-		if err != nil {
-			fmt.Println(err)
-		}
+		// End run
+		{
+			endt, err := time.Parse(time.RFC3339, "2016-04-01T10:22:02Z")
+			if err != nil {
+				fmt.Println(err)
+			}
+			end := strfmt.DateTime(endt)
+			runQuality := "my-run-quality"
 
-		start := strfmt.DateTime(startt)
-		end := strfmt.DateTime(endt)
-		runType := "my-run-type"
-		runQuality := "my-run-quality"
-		activityId := "go-api"
-		nDetectors := int64(123)
-		nFlps := int64(200)
-		nEpns := int64(1000)
-		nTimeframes := int64(1231)
-		nSubtimeframes := int64(12312)
-		bytesReadOut := int64(1024 * 1024)
-		bytesTimeframeBuilder := int64(512 * 1024)
+			params := runs.NewPatchRunsIDParams()
+			params.PatchRunDto = new(models.PatchRunDto)
+			params.PatchRunDto.O2EndTime = &end
+			params.PatchRunDto.TrgEndTime = &end
+			params.PatchRunDto.RunQuality = &runQuality
+			params.SetID(runNumber)
 
-		params := runs.NewPostRunsParams()
-		params.CreateRunDto = new(models.CreateRunDto)
-		params.CreateRunDto.TimeO2Start = &start
-		params.CreateRunDto.TimeTrgStart = &start
-		params.CreateRunDto.TimeO2End = &end
-		params.CreateRunDto.TimeTrgEnd = &end
-		params.CreateRunDto.RunType = &runType
-		params.CreateRunDto.RunQuality = &runQuality
-		params.CreateRunDto.ActivityID = &activityId
-		params.CreateRunDto.NDetectors = &nDetectors
-		params.CreateRunDto.NFlps = &nFlps
-		params.CreateRunDto.NEpns = &nEpns
-		params.CreateRunDto.NTimeframes = &nTimeframes
-		params.CreateRunDto.NSubtimeframes = &nSubtimeframes
-		params.CreateRunDto.BytesReadOut = &bytesReadOut
-		params.CreateRunDto.BytesTimeframeBuilder = &bytesTimeframeBuilder
-
-		_, err = client.PostRuns(params, bearerTokenAuth)
-		if err != nil {
-			fmt.Println(err)
+			_, err = client.PatchRunsID(params, bearerTokenAuth)
+			if err != nil {
+				fmt.Println(err)
+			}
 		}
 	}
 

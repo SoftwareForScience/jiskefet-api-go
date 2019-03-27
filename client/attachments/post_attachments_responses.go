@@ -7,6 +7,7 @@ package attachments
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -44,13 +45,19 @@ func NewPostAttachmentsCreated() *PostAttachmentsCreated {
 PostAttachmentsCreated post attachments created
 */
 type PostAttachmentsCreated struct {
+	Payload interface{}
 }
 
 func (o *PostAttachmentsCreated) Error() string {
-	return fmt.Sprintf("[POST /attachments][%d] postAttachmentsCreated ", 201)
+	return fmt.Sprintf("[POST /attachments][%d] postAttachmentsCreated  %+v", 201, o.Payload)
 }
 
 func (o *PostAttachmentsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

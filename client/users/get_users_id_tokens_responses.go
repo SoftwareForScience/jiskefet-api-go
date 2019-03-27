@@ -42,7 +42,7 @@ func NewGetUsersIDTokensOK() *GetUsersIDTokensOK {
 
 /*GetUsersIDTokensOK handles this case with default header values.
 
-OK
+GetUsersIDTokensOK get users Id tokens o k
 */
 type GetUsersIDTokensOK struct {
 	Payload interface{}

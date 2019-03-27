@@ -42,7 +42,7 @@ func NewGetLogsIDOK() *GetLogsIDOK {
 
 /*GetLogsIDOK handles this case with default header values.
 
-OK
+GetLogsIDOK get logs Id o k
 */
 type GetLogsIDOK struct {
 	Payload interface{}

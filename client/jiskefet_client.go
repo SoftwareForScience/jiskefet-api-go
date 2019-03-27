@@ -13,9 +13,11 @@ import (
 
 	"github.com/SoftwareForScience/jiskefet-api-go/client/attachments"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/authentication"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/flp"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/logs"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/overview"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/runs"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/setting"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/subsystems"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/users"
 )
@@ -67,11 +69,15 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Jiskefet {
 
 	cli.Authentication = authentication.New(transport, formats)
 
+	cli.Flp = flp.New(transport, formats)
+
 	cli.Logs = logs.New(transport, formats)
 
 	cli.Overview = overview.New(transport, formats)
 
 	cli.Runs = runs.New(transport, formats)
+
+	cli.Setting = setting.New(transport, formats)
 
 	cli.Subsystems = subsystems.New(transport, formats)
 
@@ -125,11 +131,15 @@ type Jiskefet struct {
 
 	Authentication *authentication.Client
 
+	Flp *flp.Client
+
 	Logs *logs.Client
 
 	Overview *overview.Client
 
 	Runs *runs.Client
+
+	Setting *setting.Client
 
 	Subsystems *subsystems.Client
 
@@ -146,11 +156,15 @@ func (c *Jiskefet) SetTransport(transport runtime.ClientTransport) {
 
 	c.Authentication.SetTransport(transport)
 
+	c.Flp.SetTransport(transport)
+
 	c.Logs.SetTransport(transport)
 
 	c.Overview.SetTransport(transport)
 
 	c.Runs.SetTransport(transport)
+
+	c.Setting.SetTransport(transport)
 
 	c.Subsystems.SetTransport(transport)
 

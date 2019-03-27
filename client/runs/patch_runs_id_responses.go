@@ -14,17 +14,17 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 )
 
-// GetRunsReader is a Reader for the GetRuns structure.
-type GetRunsReader struct {
+// PatchRunsIDReader is a Reader for the PatchRunsID structure.
+type PatchRunsIDReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *GetRunsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *PatchRunsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewGetRunsOK()
+		result := NewPatchRunsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -35,24 +35,24 @@ func (o *GetRunsReader) ReadResponse(response runtime.ClientResponse, consumer r
 	}
 }
 
-// NewGetRunsOK creates a GetRunsOK with default headers values
-func NewGetRunsOK() *GetRunsOK {
-	return &GetRunsOK{}
+// NewPatchRunsIDOK creates a PatchRunsIDOK with default headers values
+func NewPatchRunsIDOK() *PatchRunsIDOK {
+	return &PatchRunsIDOK{}
 }
 
-/*GetRunsOK handles this case with default header values.
+/*PatchRunsIDOK handles this case with default header values.
 
-GetRunsOK get runs o k
+PatchRunsIDOK patch runs Id o k
 */
-type GetRunsOK struct {
+type PatchRunsIDOK struct {
 	Payload interface{}
 }
 
-func (o *GetRunsOK) Error() string {
-	return fmt.Sprintf("[GET /runs][%d] getRunsOK  %+v", 200, o.Payload)
+func (o *PatchRunsIDOK) Error() string {
+	return fmt.Sprintf("[PATCH /runs/{id}][%d] patchRunsIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetRunsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *PatchRunsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

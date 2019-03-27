@@ -42,7 +42,7 @@ func NewGetRunsIDOK() *GetRunsIDOK {
 
 /*GetRunsIDOK handles this case with default header values.
 
-OK
+GetRunsIDOK get runs Id o k
 */
 type GetRunsIDOK struct {
 	Payload interface{}

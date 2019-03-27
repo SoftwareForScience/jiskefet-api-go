@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,17 +19,19 @@ import (
 // swagger:model CreateRunDto
 type CreateRunDto struct {
 
+	// o2 start time
+	// Required: true
+	// Format: date-time
+	O2StartTime *strfmt.DateTime `json:"O2StartTime"`
+
+	// trg start time
+	// Required: true
+	// Format: date-time
+	TrgStartTime *strfmt.DateTime `json:"TrgStartTime"`
+
 	// The id of the activity.
 	// Required: true
 	ActivityID *string `json:"activityId"`
-
-	// Amount of bytes read out
-	// Required: true
-	BytesReadOut *int64 `json:"bytesReadOut"`
-
-	// What builder was used.
-	// Required: true
-	BytesTimeframeBuilder *int64 `json:"bytesTimeframeBuilder"`
 
 	// Number of detectors during run.
 	// Required: true
@@ -41,56 +45,29 @@ type CreateRunDto struct {
 	// Required: true
 	NFlps *int64 `json:"nFlps"`
 
-	// Number of subtimeframes
+	// The id of the run
 	// Required: true
-	NSubtimeframes *int64 `json:"nSubtimeframes"`
-
-	// Number of timeframes
-	// Required: true
-	NTimeframes *int64 `json:"nTimeframes"`
-
-	// The quality of the run.
-	// Required: true
-	RunQuality *string `json:"runQuality"`
+	RunNumber *int64 `json:"runNumber"`
 
 	// What kind of run.
 	// Required: true
+	// Enum: [PHYSICS COSMICS TECHNICAL]
 	RunType *string `json:"runType"`
-
-	// time o2 end
-	// Required: true
-	// Format: date-time
-	TimeO2End *strfmt.DateTime `json:"timeO2End"`
-
-	// time o2 start
-	// Required: true
-	// Format: date-time
-	TimeO2Start *strfmt.DateTime `json:"timeO2Start"`
-
-	// time trg end
-	// Required: true
-	// Format: date-time
-	TimeTrgEnd *strfmt.DateTime `json:"timeTrgEnd"`
-
-	// time trg start
-	// Required: true
-	// Format: date-time
-	TimeTrgStart *strfmt.DateTime `json:"timeTrgStart"`
 }
 
 // Validate validates this create run dto
 func (m *CreateRunDto) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateO2StartTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTrgStartTime(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateActivityID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateBytesReadOut(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateBytesTimeframeBuilder(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -106,35 +83,11 @@ func (m *CreateRunDto) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateNSubtimeframes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNTimeframes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRunQuality(formats); err != nil {
+	if err := m.validateRunNumber(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateRunType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTimeO2End(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTimeO2Start(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTimeTrgEnd(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTimeTrgStart(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -144,27 +97,35 @@ func (m *CreateRunDto) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *CreateRunDto) validateO2StartTime(formats strfmt.Registry) error {
+
+	if err := validate.Required("O2StartTime", "body", m.O2StartTime); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("O2StartTime", "body", "date-time", m.O2StartTime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateRunDto) validateTrgStartTime(formats strfmt.Registry) error {
+
+	if err := validate.Required("TrgStartTime", "body", m.TrgStartTime); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("TrgStartTime", "body", "date-time", m.TrgStartTime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *CreateRunDto) validateActivityID(formats strfmt.Registry) error {
 
 	if err := validate.Required("activityId", "body", m.ActivityID); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateRunDto) validateBytesReadOut(formats strfmt.Registry) error {
-
-	if err := validate.Required("bytesReadOut", "body", m.BytesReadOut); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateRunDto) validateBytesTimeframeBuilder(formats strfmt.Registry) error {
-
-	if err := validate.Required("bytesTimeframeBuilder", "body", m.BytesTimeframeBuilder); err != nil {
 		return err
 	}
 
@@ -198,30 +159,44 @@ func (m *CreateRunDto) validateNFlps(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CreateRunDto) validateNSubtimeframes(formats strfmt.Registry) error {
+func (m *CreateRunDto) validateRunNumber(formats strfmt.Registry) error {
 
-	if err := validate.Required("nSubtimeframes", "body", m.NSubtimeframes); err != nil {
+	if err := validate.Required("runNumber", "body", m.RunNumber); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *CreateRunDto) validateNTimeframes(formats strfmt.Registry) error {
+var createRunDtoTypeRunTypePropEnum []interface{}
 
-	if err := validate.Required("nTimeframes", "body", m.NTimeframes); err != nil {
-		return err
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["PHYSICS","COSMICS","TECHNICAL"]`), &res); err != nil {
+		panic(err)
 	}
-
-	return nil
+	for _, v := range res {
+		createRunDtoTypeRunTypePropEnum = append(createRunDtoTypeRunTypePropEnum, v)
+	}
 }
 
-func (m *CreateRunDto) validateRunQuality(formats strfmt.Registry) error {
+const (
 
-	if err := validate.Required("runQuality", "body", m.RunQuality); err != nil {
+	// CreateRunDtoRunTypePHYSICS captures enum value "PHYSICS"
+	CreateRunDtoRunTypePHYSICS string = "PHYSICS"
+
+	// CreateRunDtoRunTypeCOSMICS captures enum value "COSMICS"
+	CreateRunDtoRunTypeCOSMICS string = "COSMICS"
+
+	// CreateRunDtoRunTypeTECHNICAL captures enum value "TECHNICAL"
+	CreateRunDtoRunTypeTECHNICAL string = "TECHNICAL"
+)
+
+// prop value enum
+func (m *CreateRunDto) validateRunTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, createRunDtoTypeRunTypePropEnum); err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -231,55 +206,8 @@ func (m *CreateRunDto) validateRunType(formats strfmt.Registry) error {
 		return err
 	}
 
-	return nil
-}
-
-func (m *CreateRunDto) validateTimeO2End(formats strfmt.Registry) error {
-
-	if err := validate.Required("timeO2End", "body", m.TimeO2End); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("timeO2End", "body", "date-time", m.TimeO2End.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateRunDto) validateTimeO2Start(formats strfmt.Registry) error {
-
-	if err := validate.Required("timeO2Start", "body", m.TimeO2Start); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("timeO2Start", "body", "date-time", m.TimeO2Start.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateRunDto) validateTimeTrgEnd(formats strfmt.Registry) error {
-
-	if err := validate.Required("timeTrgEnd", "body", m.TimeTrgEnd); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("timeTrgEnd", "body", "date-time", m.TimeTrgEnd.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *CreateRunDto) validateTimeTrgStart(formats strfmt.Registry) error {
-
-	if err := validate.Required("timeTrgStart", "body", m.TimeTrgStart); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("timeTrgStart", "body", "date-time", m.TimeTrgStart.String(), formats); err != nil {
+	// value enum
+	if err := m.validateRunTypeEnum("runType", "body", *m.RunType); err != nil {
 		return err
 	}
 

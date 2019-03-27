@@ -42,7 +42,7 @@ func NewGetSubsystemsIDOK() *GetSubsystemsIDOK {
 
 /*GetSubsystemsIDOK handles this case with default header values.
 
-OK
+GetSubsystemsIDOK get subsystems Id o k
 */
 type GetSubsystemsIDOK struct {
 	Payload interface{}

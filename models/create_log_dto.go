@@ -23,6 +23,10 @@ type CreateLogDto struct {
 	// Required: true
 	Attachments []string `json:"attachments"`
 
+	// describes the log in depth
+	// Required: true
+	Body *string `json:"body"`
+
 	// Where did the log come from?
 	// Required: true
 	// Enum: [human process]
@@ -37,13 +41,13 @@ type CreateLogDto struct {
 	// Enum: [run subsystem announcement intervention comment]
 	Subtype *string `json:"subtype"`
 
-	// describes the log in depth
-	// Required: true
-	Text *string `json:"text"`
-
 	// describes the log in short
 	// Required: true
 	Title *string `json:"title"`
+
+	// Author of log
+	// Required: true
+	User *int64 `json:"user"`
 }
 
 // Validate validates this create log dto
@@ -51,6 +55,10 @@ func (m *CreateLogDto) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttachments(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBody(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -66,11 +74,11 @@ func (m *CreateLogDto) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateText(formats); err != nil {
+	if err := m.validateTitle(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateTitle(formats); err != nil {
+	if err := m.validateUser(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -83,6 +91,15 @@ func (m *CreateLogDto) Validate(formats strfmt.Registry) error {
 func (m *CreateLogDto) validateAttachments(formats strfmt.Registry) error {
 
 	if err := validate.Required("attachments", "body", m.Attachments); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CreateLogDto) validateBody(formats strfmt.Registry) error {
+
+	if err := validate.Required("body", "body", m.Body); err != nil {
 		return err
 	}
 
@@ -193,18 +210,18 @@ func (m *CreateLogDto) validateSubtype(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CreateLogDto) validateText(formats strfmt.Registry) error {
+func (m *CreateLogDto) validateTitle(formats strfmt.Registry) error {
 
-	if err := validate.Required("text", "body", m.Text); err != nil {
+	if err := validate.Required("title", "body", m.Title); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *CreateLogDto) validateTitle(formats strfmt.Registry) error {
+func (m *CreateLogDto) validateUser(formats strfmt.Registry) error {
 
-	if err := validate.Required("title", "body", m.Title); err != nil {
+	if err := validate.Required("user", "body", m.User); err != nil {
 		return err
 	}
 

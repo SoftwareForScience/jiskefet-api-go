@@ -54,6 +54,35 @@ func (a *Client) GetUsersID(params *GetUsersIDParams, authInfo runtime.ClientAut
 }
 
 /*
+GetUsersIDLogs get users ID logs API
+*/
+func (a *Client) GetUsersIDLogs(params *GetUsersIDLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersIDLogsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUsersIDLogsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetUsersIDLogs",
+		Method:             "GET",
+		PathPattern:        "/users/{id}/logs",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetUsersIDLogsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUsersIDLogsOK), nil
+
+}
+
+/*
 GetUsersIDTokens get users ID tokens API
 */
 func (a *Client) GetUsersIDTokens(params *GetUsersIDTokensParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersIDTokensOK, error) {
@@ -83,23 +112,23 @@ func (a *Client) GetUsersIDTokens(params *GetUsersIDTokensParams, authInfo runti
 }
 
 /*
-PostUsersIDTokensNew post users ID tokens new API
+PostUsersIDTokens post users ID tokens API
 */
-func (a *Client) PostUsersIDTokensNew(params *PostUsersIDTokensNewParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersIDTokensNewCreated, error) {
+func (a *Client) PostUsersIDTokens(params *PostUsersIDTokensParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersIDTokensCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostUsersIDTokensNewParams()
+		params = NewPostUsersIDTokensParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostUsersIDTokensNew",
+		ID:                 "PostUsersIDTokens",
 		Method:             "POST",
-		PathPattern:        "/users/{id}/tokens/new",
+		PathPattern:        "/users/{id}/tokens",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http"},
 		Params:             params,
-		Reader:             &PostUsersIDTokensNewReader{formats: a.formats},
+		Reader:             &PostUsersIDTokensReader{formats: a.formats},
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
@@ -107,7 +136,7 @@ func (a *Client) PostUsersIDTokensNew(params *PostUsersIDTokensNewParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostUsersIDTokensNewCreated), nil
+	return result.(*PostUsersIDTokensCreated), nil
 
 }
 

@@ -7,6 +7,7 @@ package runs
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -44,13 +45,19 @@ func NewPostRunsCreated() *PostRunsCreated {
 PostRunsCreated post runs created
 */
 type PostRunsCreated struct {
+	Payload interface{}
 }
 
 func (o *PostRunsCreated) Error() string {
-	return fmt.Sprintf("[POST /runs][%d] postRunsCreated ", 201)
+	return fmt.Sprintf("[POST /runs][%d] postRunsCreated  %+v", 201, o.Payload)
 }
 
 func (o *PostRunsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

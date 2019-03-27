@@ -7,7 +7,6 @@ package overview
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -42,22 +41,16 @@ func NewGetOverviewOK() *GetOverviewOK {
 
 /*GetOverviewOK handles this case with default header values.
 
-OK
+GetOverviewOK get overview o k
 */
 type GetOverviewOK struct {
-	Payload interface{}
 }
 
 func (o *GetOverviewOK) Error() string {
-	return fmt.Sprintf("[GET /overview][%d] getOverviewOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /overview][%d] getOverviewOK ", 200)
 }
 
 func (o *GetOverviewOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }
