@@ -21,12 +21,10 @@ go run main.go
 
 
 ## Code generation
+A submodule is kept which points to the openapi-spec version which was used to generate the API.
 To (re)generate the client code:
 ```
 go get -u -v github.com/go-swagger/go-swagger/cmd/swagger
 cd $GOPATH/src/github.com/SoftwareForScience/jiskefet-api-go
 ~/go/bin/swagger generate client --spec=jiskefet-openapi-spec/openapi-spec.yaml
 ```
-
-# Notes
-- A submodule is kept which points to the openapi-spec version which was used to generate the API

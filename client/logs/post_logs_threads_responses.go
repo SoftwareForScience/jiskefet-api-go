@@ -7,6 +7,7 @@ package logs
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -44,13 +45,19 @@ func NewPostLogsThreadsCreated() *PostLogsThreadsCreated {
 PostLogsThreadsCreated post logs threads created
 */
 type PostLogsThreadsCreated struct {
+	Payload interface{}
 }
 
 func (o *PostLogsThreadsCreated) Error() string {
-	return fmt.Sprintf("[POST /logs/threads][%d] postLogsThreadsCreated ", 201)
+	return fmt.Sprintf("[POST /logs/threads][%d] postLogsThreadsCreated  %+v", 201, o.Payload)
 }
 
 func (o *PostLogsThreadsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
