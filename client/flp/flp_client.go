@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetFlpNameRunsID get flp name runs ID API
+GetFlpNameRunsID returns a specific f l p based on run Id
 */
 func (a *Client) GetFlpNameRunsID(params *GetFlpNameRunsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetFlpNameRunsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -54,7 +54,7 @@ func (a *Client) GetFlpNameRunsID(params *GetFlpNameRunsIDParams, authInfo runti
 }
 
 /*
-PatchFlpNameRunsID patch flp name runs ID API
+PatchFlpNameRunsID updates an f l p based on a run Id and f l p name
 */
 func (a *Client) PatchFlpNameRunsID(params *PatchFlpNameRunsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchFlpNameRunsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -83,7 +83,7 @@ func (a *Client) PatchFlpNameRunsID(params *PatchFlpNameRunsIDParams, authInfo r
 }
 
 /*
-PostFlp post flp API
+PostFlp creates an f l p
 */
 func (a *Client) PostFlp(params *PostFlpParams, authInfo runtime.ClientAuthInfoWriter) (*PostFlpCreated, error) {
 	// TODO: Validate the params before sending

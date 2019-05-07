@@ -7,7 +7,6 @@ package runs
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -23,41 +22,91 @@ type PatchRunsIDLogsReader struct {
 func (o *PatchRunsIDLogsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewPatchRunsIDLogsOK()
+	case 204:
+		result := NewPatchRunsIDLogsNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
+	case 404:
+		result := NewPatchRunsIDLogsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPatchRunsIDLogsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
-// NewPatchRunsIDLogsOK creates a PatchRunsIDLogsOK with default headers values
-func NewPatchRunsIDLogsOK() *PatchRunsIDLogsOK {
-	return &PatchRunsIDLogsOK{}
+// NewPatchRunsIDLogsNoContent creates a PatchRunsIDLogsNoContent with default headers values
+func NewPatchRunsIDLogsNoContent() *PatchRunsIDLogsNoContent {
+	return &PatchRunsIDLogsNoContent{}
 }
 
-/*PatchRunsIDLogsOK handles this case with default header values.
+/*PatchRunsIDLogsNoContent handles this case with default header values.
 
-PatchRunsIDLogsOK patch runs Id logs o k
+The Log is successfully linked to the Run.
 */
-type PatchRunsIDLogsOK struct {
-	Payload interface{}
+type PatchRunsIDLogsNoContent struct {
 }
 
-func (o *PatchRunsIDLogsOK) Error() string {
-	return fmt.Sprintf("[PATCH /runs/{id}/logs][%d] patchRunsIdLogsOK  %+v", 200, o.Payload)
+func (o *PatchRunsIDLogsNoContent) Error() string {
+	return fmt.Sprintf("[PATCH /runs/{id}/logs][%d] patchRunsIdLogsNoContent ", 204)
 }
 
-func (o *PatchRunsIDLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *PatchRunsIDLogsNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewPatchRunsIDLogsNotFound creates a PatchRunsIDLogsNotFound with default headers values
+func NewPatchRunsIDLogsNotFound() *PatchRunsIDLogsNotFound {
+	return &PatchRunsIDLogsNotFound{}
+}
+
+/*PatchRunsIDLogsNotFound handles this case with default header values.
+
+The Log or Run does not exist.
+*/
+type PatchRunsIDLogsNotFound struct {
+}
+
+func (o *PatchRunsIDLogsNotFound) Error() string {
+	return fmt.Sprintf("[PATCH /runs/{id}/logs][%d] patchRunsIdLogsNotFound ", 404)
+}
+
+func (o *PatchRunsIDLogsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewPatchRunsIDLogsConflict creates a PatchRunsIDLogsConflict with default headers values
+func NewPatchRunsIDLogsConflict() *PatchRunsIDLogsConflict {
+	return &PatchRunsIDLogsConflict{}
+}
+
+/*PatchRunsIDLogsConflict handles this case with default header values.
+
+The Log is already linked to the Run.
+*/
+type PatchRunsIDLogsConflict struct {
+}
+
+func (o *PatchRunsIDLogsConflict) Error() string {
+	return fmt.Sprintf("[PATCH /runs/{id}/logs][%d] patchRunsIdLogsConflict ", 409)
+}
+
+func (o *PatchRunsIDLogsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

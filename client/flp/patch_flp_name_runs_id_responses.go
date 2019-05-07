@@ -7,7 +7,6 @@ package flp
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *PatchFlpNameRunsIDReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return result, nil
 
+	case 404:
+		result := NewPatchFlpNameRunsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewPatchFlpNameRunsIDOK() *PatchFlpNameRunsIDOK {
 
 /*PatchFlpNameRunsIDOK handles this case with default header values.
 
-PatchFlpNameRunsIDOK patch flp name runs Id o k
+Succesfully updated an FLP.
 */
 type PatchFlpNameRunsIDOK struct {
-	Payload interface{}
 }
 
 func (o *PatchFlpNameRunsIDOK) Error() string {
-	return fmt.Sprintf("[PATCH /flp/{name}/runs/{id}][%d] patchFlpNameRunsIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PATCH /flp/{name}/runs/{id}][%d] patchFlpNameRunsIdOK ", 200)
 }
 
 func (o *PatchFlpNameRunsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewPatchFlpNameRunsIDNotFound creates a PatchFlpNameRunsIDNotFound with default headers values
+func NewPatchFlpNameRunsIDNotFound() *PatchFlpNameRunsIDNotFound {
+	return &PatchFlpNameRunsIDNotFound{}
+}
+
+/*PatchFlpNameRunsIDNotFound handles this case with default header values.
+
+The Run number or/and FLP name does not exist.
+*/
+type PatchFlpNameRunsIDNotFound struct {
+}
+
+func (o *PatchFlpNameRunsIDNotFound) Error() string {
+	return fmt.Sprintf("[PATCH /flp/{name}/runs/{id}][%d] patchFlpNameRunsIdNotFound ", 404)
+}
+
+func (o *PatchFlpNameRunsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

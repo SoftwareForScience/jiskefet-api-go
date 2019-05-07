@@ -19,12 +19,12 @@ import (
 // swagger:model CreateRunDto
 type CreateRunDto struct {
 
-	// o2 start time
+	// Current Date
 	// Required: true
 	// Format: date-time
 	O2StartTime *strfmt.DateTime `json:"O2StartTime"`
 
-	// trg start time
+	// Current Date
 	// Required: true
 	// Format: date-time
 	TrgStartTime *strfmt.DateTime `json:"TrgStartTime"`

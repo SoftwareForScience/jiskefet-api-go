@@ -7,7 +7,6 @@ package flp
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *PostFlpReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return result, nil
 
+	case 409:
+		result := NewPostFlpConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewPostFlpCreated() *PostFlpCreated {
 
 /*PostFlpCreated handles this case with default header values.
 
-PostFlpCreated post flp created
+Succesfully created an FLP.
 */
 type PostFlpCreated struct {
-	Payload interface{}
 }
 
 func (o *PostFlpCreated) Error() string {
-	return fmt.Sprintf("[POST /flp][%d] postFlpCreated  %+v", 201, o.Payload)
+	return fmt.Sprintf("[POST /flp][%d] postFlpCreated ", 201)
 }
 
 func (o *PostFlpCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewPostFlpConflict creates a PostFlpConflict with default headers values
+func NewPostFlpConflict() *PostFlpConflict {
+	return &PostFlpConflict{}
+}
+
+/*PostFlpConflict handles this case with default header values.
+
+An FLP already exists with this Name and Hostname.
+*/
+type PostFlpConflict struct {
+}
+
+func (o *PostFlpConflict) Error() string {
+	return fmt.Sprintf("[POST /flp][%d] postFlpConflict ", 409)
+}
+
+func (o *PostFlpConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

@@ -12,6 +12,8 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/SoftwareForScience/jiskefet-api-go/models"
 )
 
 // PostRunsReader is a Reader for the PostRuns structure.
@@ -30,6 +32,13 @@ func (o *PostRunsReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return result, nil
 
+	case 409:
+		result := NewPostRunsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,10 +51,10 @@ func NewPostRunsCreated() *PostRunsCreated {
 
 /*PostRunsCreated handles this case with default header values.
 
-PostRunsCreated post runs created
+Succesfully created a Run.
 */
 type PostRunsCreated struct {
-	Payload interface{}
+	Payload *models.Run
 }
 
 func (o *PostRunsCreated) Error() string {
@@ -54,10 +63,33 @@ func (o *PostRunsCreated) Error() string {
 
 func (o *PostRunsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.Run)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
+
+	return nil
+}
+
+// NewPostRunsConflict creates a PostRunsConflict with default headers values
+func NewPostRunsConflict() *PostRunsConflict {
+	return &PostRunsConflict{}
+}
+
+/*PostRunsConflict handles this case with default header values.
+
+A Run already exists with given Run number.
+*/
+type PostRunsConflict struct {
+}
+
+func (o *PostRunsConflict) Error() string {
+	return fmt.Sprintf("[POST /runs][%d] postRunsConflict ", 409)
+}
+
+func (o *PostRunsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

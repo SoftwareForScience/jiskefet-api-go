@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetRuns get runs API
+GetRuns returns all runs
 */
 func (a *Client) GetRuns(params *GetRunsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunsOK, error) {
 	// TODO: Validate the params before sending
@@ -54,7 +54,7 @@ func (a *Client) GetRuns(params *GetRunsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-GetRunsID get runs ID API
+GetRunsID returns a specific run
 */
 func (a *Client) GetRunsID(params *GetRunsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -83,7 +83,7 @@ func (a *Client) GetRunsID(params *GetRunsIDParams, authInfo runtime.ClientAuthI
 }
 
 /*
-PatchRunsID patch runs ID API
+PatchRunsID updates certain fields of a run
 */
 func (a *Client) PatchRunsID(params *PatchRunsIDParams, authInfo runtime.ClientAuthInfoWriter) (*PatchRunsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -112,9 +112,9 @@ func (a *Client) PatchRunsID(params *PatchRunsIDParams, authInfo runtime.ClientA
 }
 
 /*
-PatchRunsIDLogs patch runs ID logs API
+PatchRunsIDLogs links a log to a specific run
 */
-func (a *Client) PatchRunsIDLogs(params *PatchRunsIDLogsParams, authInfo runtime.ClientAuthInfoWriter) (*PatchRunsIDLogsOK, error) {
+func (a *Client) PatchRunsIDLogs(params *PatchRunsIDLogsParams, authInfo runtime.ClientAuthInfoWriter) (*PatchRunsIDLogsNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchRunsIDLogsParams()
@@ -136,12 +136,12 @@ func (a *Client) PatchRunsIDLogs(params *PatchRunsIDLogsParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchRunsIDLogsOK), nil
+	return result.(*PatchRunsIDLogsNoContent), nil
 
 }
 
 /*
-PostRuns post runs API
+PostRuns creates a run
 */
 func (a *Client) PostRuns(params *PostRunsParams, authInfo runtime.ClientAuthInfoWriter) (*PostRunsCreated, error) {
 	// TODO: Validate the params before sending

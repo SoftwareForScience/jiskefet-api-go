@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -65,7 +66,7 @@ type GetOverviewParams struct {
 	  In which time range the logs of eachsubsystem should be posted
 
 	*/
-	TimeRange *string
+	TimeRange *int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -106,13 +107,13 @@ func (o *GetOverviewParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithTimeRange adds the timeRange to the get overview params
-func (o *GetOverviewParams) WithTimeRange(timeRange *string) *GetOverviewParams {
+func (o *GetOverviewParams) WithTimeRange(timeRange *int64) *GetOverviewParams {
 	o.SetTimeRange(timeRange)
 	return o
 }
 
 // SetTimeRange adds the timeRange to the get overview params
-func (o *GetOverviewParams) SetTimeRange(timeRange *string) {
+func (o *GetOverviewParams) SetTimeRange(timeRange *int64) {
 	o.TimeRange = timeRange
 }
 
@@ -127,11 +128,11 @@ func (o *GetOverviewParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	if o.TimeRange != nil {
 
 		// query param timeRange
-		var qrTimeRange string
+		var qrTimeRange int64
 		if o.TimeRange != nil {
 			qrTimeRange = *o.TimeRange
 		}
-		qTimeRange := qrTimeRange
+		qTimeRange := swag.FormatInt64(qrTimeRange)
 		if qTimeRange != "" {
 			if err := r.SetQueryParam("timeRange", qTimeRange); err != nil {
 				return err

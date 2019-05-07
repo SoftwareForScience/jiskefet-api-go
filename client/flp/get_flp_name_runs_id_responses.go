@@ -7,7 +7,6 @@ package flp
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *GetFlpNameRunsIDReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetFlpNameRunsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewGetFlpNameRunsIDOK() *GetFlpNameRunsIDOK {
 
 /*GetFlpNameRunsIDOK handles this case with default header values.
 
-GetFlpNameRunsIDOK get flp name runs Id o k
+Succesfully returned an FLP.
 */
 type GetFlpNameRunsIDOK struct {
-	Payload interface{}
 }
 
 func (o *GetFlpNameRunsIDOK) Error() string {
-	return fmt.Sprintf("[GET /flp/{name}/runs/{id}][%d] getFlpNameRunsIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /flp/{name}/runs/{id}][%d] getFlpNameRunsIdOK ", 200)
 }
 
 func (o *GetFlpNameRunsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewGetFlpNameRunsIDNotFound creates a GetFlpNameRunsIDNotFound with default headers values
+func NewGetFlpNameRunsIDNotFound() *GetFlpNameRunsIDNotFound {
+	return &GetFlpNameRunsIDNotFound{}
+}
+
+/*GetFlpNameRunsIDNotFound handles this case with default header values.
+
+There is no FLP for the Run with this run number.
+*/
+type GetFlpNameRunsIDNotFound struct {
+}
+
+func (o *GetFlpNameRunsIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /flp/{name}/runs/{id}][%d] getFlpNameRunsIdNotFound ", 404)
+}
+
+func (o *GetFlpNameRunsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

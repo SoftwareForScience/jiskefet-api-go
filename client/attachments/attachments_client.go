@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetAttachmentsIDLogs get attachments ID logs API
+GetAttachmentsIDLogs returns attachments that belong to a specific log
 */
 func (a *Client) GetAttachmentsIDLogs(params *GetAttachmentsIDLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAttachmentsIDLogsOK, error) {
 	// TODO: Validate the params before sending
@@ -50,35 +50,6 @@ func (a *Client) GetAttachmentsIDLogs(params *GetAttachmentsIDLogsParams, authIn
 		return nil, err
 	}
 	return result.(*GetAttachmentsIDLogsOK), nil
-
-}
-
-/*
-PostAttachments post attachments API
-*/
-func (a *Client) PostAttachments(params *PostAttachmentsParams, authInfo runtime.ClientAuthInfoWriter) (*PostAttachmentsCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostAttachmentsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostAttachments",
-		Method:             "POST",
-		PathPattern:        "/attachments",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &PostAttachmentsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return result.(*PostAttachmentsCreated), nil
 
 }
 

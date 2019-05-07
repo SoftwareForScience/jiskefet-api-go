@@ -7,7 +7,6 @@ package runs
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *GetRunsReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetRunsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewGetRunsOK() *GetRunsOK {
 
 /*GetRunsOK handles this case with default header values.
 
-GetRunsOK get runs o k
+Succesfully returned Runs.
 */
 type GetRunsOK struct {
-	Payload interface{}
 }
 
 func (o *GetRunsOK) Error() string {
-	return fmt.Sprintf("[GET /runs][%d] getRunsOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /runs][%d] getRunsOK ", 200)
 }
 
 func (o *GetRunsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewGetRunsNotFound creates a GetRunsNotFound with default headers values
+func NewGetRunsNotFound() *GetRunsNotFound {
+	return &GetRunsNotFound{}
+}
+
+/*GetRunsNotFound handles this case with default header values.
+
+There are no Runs found with given query params.
+*/
+type GetRunsNotFound struct {
+}
+
+func (o *GetRunsNotFound) Error() string {
+	return fmt.Sprintf("[GET /runs][%d] getRunsNotFound ", 404)
+}
+
+func (o *GetRunsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

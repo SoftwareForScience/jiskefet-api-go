@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetOverview get overview API
+GetOverview returns all overviews that belong to a specific log
 */
 func (a *Client) GetOverview(params *GetOverviewParams, authInfo runtime.ClientAuthInfoWriter) (*GetOverviewOK, error) {
 	// TODO: Validate the params before sending

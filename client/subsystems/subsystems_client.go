@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetSubsystems get subsystems API
+GetSubsystems returns all subsystems
 */
 func (a *Client) GetSubsystems(params *GetSubsystemsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSubsystemsOK, error) {
 	// TODO: Validate the params before sending
@@ -54,7 +54,7 @@ func (a *Client) GetSubsystems(params *GetSubsystemsParams, authInfo runtime.Cli
 }
 
 /*
-GetSubsystemsID get subsystems ID API
+GetSubsystemsID returns a specific subsystem
 */
 func (a *Client) GetSubsystemsID(params *GetSubsystemsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetSubsystemsIDOK, error) {
 	// TODO: Validate the params before sending

@@ -7,7 +7,6 @@ package attachments
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *GetAttachmentsIDLogsReader) ReadResponse(response runtime.ClientRespons
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetAttachmentsIDLogsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewGetAttachmentsIDLogsOK() *GetAttachmentsIDLogsOK {
 
 /*GetAttachmentsIDLogsOK handles this case with default header values.
 
-GetAttachmentsIDLogsOK get attachments Id logs o k
+Succesfully returned the Attachments.
 */
 type GetAttachmentsIDLogsOK struct {
-	Payload interface{}
 }
 
 func (o *GetAttachmentsIDLogsOK) Error() string {
-	return fmt.Sprintf("[GET /attachments/{id}/logs][%d] getAttachmentsIdLogsOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /attachments/{id}/logs][%d] getAttachmentsIdLogsOK ", 200)
 }
 
 func (o *GetAttachmentsIDLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewGetAttachmentsIDLogsNotFound creates a GetAttachmentsIDLogsNotFound with default headers values
+func NewGetAttachmentsIDLogsNotFound() *GetAttachmentsIDLogsNotFound {
+	return &GetAttachmentsIDLogsNotFound{}
+}
+
+/*GetAttachmentsIDLogsNotFound handles this case with default header values.
+
+No Attachments found for this Log.
+*/
+type GetAttachmentsIDLogsNotFound struct {
+}
+
+func (o *GetAttachmentsIDLogsNotFound) Error() string {
+	return fmt.Sprintf("[GET /attachments/{id}/logs][%d] getAttachmentsIdLogsNotFound ", 404)
+}
+
+func (o *GetAttachmentsIDLogsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

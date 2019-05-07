@@ -7,7 +7,6 @@ package logs
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *GetLogsReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetLogsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewGetLogsOK() *GetLogsOK {
 
 /*GetLogsOK handles this case with default header values.
 
-GetLogsOK get logs o k
+Succesfully returned Logs.
 */
 type GetLogsOK struct {
-	Payload interface{}
 }
 
 func (o *GetLogsOK) Error() string {
-	return fmt.Sprintf("[GET /logs][%d] getLogsOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /logs][%d] getLogsOK ", 200)
 }
 
 func (o *GetLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewGetLogsNotFound creates a GetLogsNotFound with default headers values
+func NewGetLogsNotFound() *GetLogsNotFound {
+	return &GetLogsNotFound{}
+}
+
+/*GetLogsNotFound handles this case with default header values.
+
+There are no Logs.
+*/
+type GetLogsNotFound struct {
+}
+
+func (o *GetLogsNotFound) Error() string {
+	return fmt.Sprintf("[GET /logs][%d] getLogsNotFound ", 404)
+}
+
+func (o *GetLogsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

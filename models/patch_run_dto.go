@@ -19,31 +19,15 @@ import (
 // swagger:model PatchRunDto
 type PatchRunDto struct {
 
-	// o2 end time
+	// Current Date at end of run
 	// Required: true
 	// Format: date-time
 	O2EndTime *strfmt.DateTime `json:"O2EndTime"`
 
-	// trg end time
+	// Current Date at end of run
 	// Required: true
 	// Format: date-time
 	TrgEndTime *strfmt.DateTime `json:"TrgEndTime"`
-
-	// Amount of bytes read out
-	// Required: true
-	BytesReadOut *int64 `json:"bytesReadOut"`
-
-	// What builder was used.
-	// Required: true
-	BytesTimeframeBuilder *int64 `json:"bytesTimeframeBuilder"`
-
-	// Number of subtimeframes
-	// Required: true
-	NSubtimeframes *int64 `json:"nSubtimeframes"`
-
-	// Number of timeframes
-	// Required: true
-	NTimeframes *int64 `json:"nTimeframes"`
 
 	// The quality of the run.
 	// Required: true
@@ -60,22 +44,6 @@ func (m *PatchRunDto) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTrgEndTime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateBytesReadOut(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateBytesTimeframeBuilder(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNSubtimeframes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateNTimeframes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -109,42 +77,6 @@ func (m *PatchRunDto) validateTrgEndTime(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("TrgEndTime", "body", "date-time", m.TrgEndTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PatchRunDto) validateBytesReadOut(formats strfmt.Registry) error {
-
-	if err := validate.Required("bytesReadOut", "body", m.BytesReadOut); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PatchRunDto) validateBytesTimeframeBuilder(formats strfmt.Registry) error {
-
-	if err := validate.Required("bytesTimeframeBuilder", "body", m.BytesTimeframeBuilder); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PatchRunDto) validateNSubtimeframes(formats strfmt.Registry) error {
-
-	if err := validate.Required("nSubtimeframes", "body", m.NSubtimeframes); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PatchRunDto) validateNTimeframes(formats strfmt.Registry) error {
-
-	if err := validate.Required("nTimeframes", "body", m.NTimeframes); err != nil {
 		return err
 	}
 

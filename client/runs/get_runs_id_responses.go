@@ -7,7 +7,6 @@ package runs
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *GetRunsIDReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetRunsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewGetRunsIDOK() *GetRunsIDOK {
 
 /*GetRunsIDOK handles this case with default header values.
 
-GetRunsIDOK get runs Id o k
+Succesfully returned a specific Run.
 */
 type GetRunsIDOK struct {
-	Payload interface{}
 }
 
 func (o *GetRunsIDOK) Error() string {
-	return fmt.Sprintf("[GET /runs/{id}][%d] getRunsIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /runs/{id}][%d] getRunsIdOK ", 200)
 }
 
 func (o *GetRunsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewGetRunsIDNotFound creates a GetRunsIDNotFound with default headers values
+func NewGetRunsIDNotFound() *GetRunsIDNotFound {
+	return &GetRunsIDNotFound{}
+}
+
+/*GetRunsIDNotFound handles this case with default header values.
+
+There is no Run with the given Run number.
+*/
+type GetRunsIDNotFound struct {
+}
+
+func (o *GetRunsIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /runs/{id}][%d] getRunsIdNotFound ", 404)
+}
+
+func (o *GetRunsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

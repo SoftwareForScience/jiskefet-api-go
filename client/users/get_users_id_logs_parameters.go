@@ -22,8 +22,8 @@ import (
 // with the default values initialized.
 func NewGetUsersIDLogsParams() *GetUsersIDLogsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetUsersIDLogsParams{
 		PageNumber: &pageNumberDefault,
@@ -37,8 +37,8 @@ func NewGetUsersIDLogsParams() *GetUsersIDLogsParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetUsersIDLogsParamsWithTimeout(timeout time.Duration) *GetUsersIDLogsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetUsersIDLogsParams{
 		PageNumber: &pageNumberDefault,
@@ -52,8 +52,8 @@ func NewGetUsersIDLogsParamsWithTimeout(timeout time.Duration) *GetUsersIDLogsPa
 // with the default values initialized, and the ability to set a context for a request
 func NewGetUsersIDLogsParamsWithContext(ctx context.Context) *GetUsersIDLogsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetUsersIDLogsParams{
 		PageNumber: &pageNumberDefault,
@@ -67,8 +67,8 @@ func NewGetUsersIDLogsParamsWithContext(ctx context.Context) *GetUsersIDLogsPara
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetUsersIDLogsParamsWithHTTPClient(client *http.Client) *GetUsersIDLogsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetUsersIDLogsParams{
 		PageNumber: &pageNumberDefault,
@@ -86,14 +86,14 @@ type GetUsersIDLogsParams struct {
 	  The upper bound of the creation time filter range.
 
 	*/
-	EndCreationTime *string
+	EndCreationTime *strfmt.DateTime
 	/*ID*/
 	ID int64
 	/*LogID
 	  The id of the log.
 
 	*/
-	LogID *string
+	LogID *int64
 	/*OrderBy
 	  On which field to order on.
 
@@ -113,12 +113,12 @@ type GetUsersIDLogsParams struct {
 	  The current page, i.e. the offset in the result set based on pageSize.
 
 	*/
-	PageNumber *string
+	PageNumber *int64
 	/*PageSize
 	  The maximum amount of logs in each result.
 
 	*/
-	PageSize *string
+	PageSize *int64
 	/*Searchterm
 	  Search for a term that exists in the title field of a log.
 
@@ -128,7 +128,7 @@ type GetUsersIDLogsParams struct {
 	  The lower bound of the creation time filter range.
 
 	*/
-	StartCreationTime *string
+	StartCreationTime *strfmt.DateTime
 	/*Subtype
 	  The subtype of the log.
 
@@ -138,7 +138,7 @@ type GetUsersIDLogsParams struct {
 	  The author of the log..
 
 	*/
-	User *string
+	User *int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -179,13 +179,13 @@ func (o *GetUsersIDLogsParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithEndCreationTime adds the endCreationTime to the get users ID logs params
-func (o *GetUsersIDLogsParams) WithEndCreationTime(endCreationTime *string) *GetUsersIDLogsParams {
+func (o *GetUsersIDLogsParams) WithEndCreationTime(endCreationTime *strfmt.DateTime) *GetUsersIDLogsParams {
 	o.SetEndCreationTime(endCreationTime)
 	return o
 }
 
 // SetEndCreationTime adds the endCreationTime to the get users ID logs params
-func (o *GetUsersIDLogsParams) SetEndCreationTime(endCreationTime *string) {
+func (o *GetUsersIDLogsParams) SetEndCreationTime(endCreationTime *strfmt.DateTime) {
 	o.EndCreationTime = endCreationTime
 }
 
@@ -201,13 +201,13 @@ func (o *GetUsersIDLogsParams) SetID(id int64) {
 }
 
 // WithLogID adds the logID to the get users ID logs params
-func (o *GetUsersIDLogsParams) WithLogID(logID *string) *GetUsersIDLogsParams {
+func (o *GetUsersIDLogsParams) WithLogID(logID *int64) *GetUsersIDLogsParams {
 	o.SetLogID(logID)
 	return o
 }
 
 // SetLogID adds the logId to the get users ID logs params
-func (o *GetUsersIDLogsParams) SetLogID(logID *string) {
+func (o *GetUsersIDLogsParams) SetLogID(logID *int64) {
 	o.LogID = logID
 }
 
@@ -245,24 +245,24 @@ func (o *GetUsersIDLogsParams) SetOrigin(origin *string) {
 }
 
 // WithPageNumber adds the pageNumber to the get users ID logs params
-func (o *GetUsersIDLogsParams) WithPageNumber(pageNumber *string) *GetUsersIDLogsParams {
+func (o *GetUsersIDLogsParams) WithPageNumber(pageNumber *int64) *GetUsersIDLogsParams {
 	o.SetPageNumber(pageNumber)
 	return o
 }
 
 // SetPageNumber adds the pageNumber to the get users ID logs params
-func (o *GetUsersIDLogsParams) SetPageNumber(pageNumber *string) {
+func (o *GetUsersIDLogsParams) SetPageNumber(pageNumber *int64) {
 	o.PageNumber = pageNumber
 }
 
 // WithPageSize adds the pageSize to the get users ID logs params
-func (o *GetUsersIDLogsParams) WithPageSize(pageSize *string) *GetUsersIDLogsParams {
+func (o *GetUsersIDLogsParams) WithPageSize(pageSize *int64) *GetUsersIDLogsParams {
 	o.SetPageSize(pageSize)
 	return o
 }
 
 // SetPageSize adds the pageSize to the get users ID logs params
-func (o *GetUsersIDLogsParams) SetPageSize(pageSize *string) {
+func (o *GetUsersIDLogsParams) SetPageSize(pageSize *int64) {
 	o.PageSize = pageSize
 }
 
@@ -278,13 +278,13 @@ func (o *GetUsersIDLogsParams) SetSearchterm(searchterm *string) {
 }
 
 // WithStartCreationTime adds the startCreationTime to the get users ID logs params
-func (o *GetUsersIDLogsParams) WithStartCreationTime(startCreationTime *string) *GetUsersIDLogsParams {
+func (o *GetUsersIDLogsParams) WithStartCreationTime(startCreationTime *strfmt.DateTime) *GetUsersIDLogsParams {
 	o.SetStartCreationTime(startCreationTime)
 	return o
 }
 
 // SetStartCreationTime adds the startCreationTime to the get users ID logs params
-func (o *GetUsersIDLogsParams) SetStartCreationTime(startCreationTime *string) {
+func (o *GetUsersIDLogsParams) SetStartCreationTime(startCreationTime *strfmt.DateTime) {
 	o.StartCreationTime = startCreationTime
 }
 
@@ -300,13 +300,13 @@ func (o *GetUsersIDLogsParams) SetSubtype(subtype *string) {
 }
 
 // WithUser adds the user to the get users ID logs params
-func (o *GetUsersIDLogsParams) WithUser(user *string) *GetUsersIDLogsParams {
+func (o *GetUsersIDLogsParams) WithUser(user *int64) *GetUsersIDLogsParams {
 	o.SetUser(user)
 	return o
 }
 
 // SetUser adds the user to the get users ID logs params
-func (o *GetUsersIDLogsParams) SetUser(user *string) {
+func (o *GetUsersIDLogsParams) SetUser(user *int64) {
 	o.User = user
 }
 
@@ -321,11 +321,11 @@ func (o *GetUsersIDLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if o.EndCreationTime != nil {
 
 		// query param endCreationTime
-		var qrEndCreationTime string
+		var qrEndCreationTime strfmt.DateTime
 		if o.EndCreationTime != nil {
 			qrEndCreationTime = *o.EndCreationTime
 		}
-		qEndCreationTime := qrEndCreationTime
+		qEndCreationTime := qrEndCreationTime.String()
 		if qEndCreationTime != "" {
 			if err := r.SetQueryParam("endCreationTime", qEndCreationTime); err != nil {
 				return err
@@ -342,11 +342,11 @@ func (o *GetUsersIDLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if o.LogID != nil {
 
 		// query param logId
-		var qrLogID string
+		var qrLogID int64
 		if o.LogID != nil {
 			qrLogID = *o.LogID
 		}
-		qLogID := qrLogID
+		qLogID := swag.FormatInt64(qrLogID)
 		if qLogID != "" {
 			if err := r.SetQueryParam("logId", qLogID); err != nil {
 				return err
@@ -406,11 +406,11 @@ func (o *GetUsersIDLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if o.PageNumber != nil {
 
 		// query param pageNumber
-		var qrPageNumber string
+		var qrPageNumber int64
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
-		qPageNumber := qrPageNumber
+		qPageNumber := swag.FormatInt64(qrPageNumber)
 		if qPageNumber != "" {
 			if err := r.SetQueryParam("pageNumber", qPageNumber); err != nil {
 				return err
@@ -422,11 +422,11 @@ func (o *GetUsersIDLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if o.PageSize != nil {
 
 		// query param pageSize
-		var qrPageSize string
+		var qrPageSize int64
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
-		qPageSize := qrPageSize
+		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
 			if err := r.SetQueryParam("pageSize", qPageSize); err != nil {
 				return err
@@ -454,11 +454,11 @@ func (o *GetUsersIDLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if o.StartCreationTime != nil {
 
 		// query param startCreationTime
-		var qrStartCreationTime string
+		var qrStartCreationTime strfmt.DateTime
 		if o.StartCreationTime != nil {
 			qrStartCreationTime = *o.StartCreationTime
 		}
-		qStartCreationTime := qrStartCreationTime
+		qStartCreationTime := qrStartCreationTime.String()
 		if qStartCreationTime != "" {
 			if err := r.SetQueryParam("startCreationTime", qStartCreationTime); err != nil {
 				return err
@@ -486,11 +486,11 @@ func (o *GetUsersIDLogsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if o.User != nil {
 
 		// query param user
-		var qrUser string
+		var qrUser int64
 		if o.User != nil {
 			qrUser = *o.User
 		}
-		qUser := qrUser
+		qUser := swag.FormatInt64(qrUser)
 		if qUser != "" {
 			if err := r.SetQueryParam("user", qUser); err != nil {
 				return err

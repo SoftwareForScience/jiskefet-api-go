@@ -29,6 +29,13 @@ func (o *GetOverviewReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetOverviewNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -41,7 +48,7 @@ func NewGetOverviewOK() *GetOverviewOK {
 
 /*GetOverviewOK handles this case with default header values.
 
-GetOverviewOK get overview o k
+Succesfully returned the overview.
 */
 type GetOverviewOK struct {
 }
@@ -51,6 +58,27 @@ func (o *GetOverviewOK) Error() string {
 }
 
 func (o *GetOverviewOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewGetOverviewNotFound creates a GetOverviewNotFound with default headers values
+func NewGetOverviewNotFound() *GetOverviewNotFound {
+	return &GetOverviewNotFound{}
+}
+
+/*GetOverviewNotFound handles this case with default header values.
+
+Unable to find an overview with given input
+*/
+type GetOverviewNotFound struct {
+}
+
+func (o *GetOverviewNotFound) Error() string {
+	return fmt.Sprintf("[GET /overview][%d] getOverviewNotFound ", 404)
+}
+
+func (o *GetOverviewNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

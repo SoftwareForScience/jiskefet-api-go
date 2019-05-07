@@ -33,13 +33,13 @@ type CreateSubSystemPermissionDto struct {
 	// Required: true
 	SubSystemTokenDescription *string `json:"subSystemTokenDescription"`
 
-	// subsystem
+	// SubSystem
 	// Required: true
-	Subsystem interface{} `json:"subsystem"`
+	Subsystem *SubSystem `json:"subsystem"`
 
 	// user
 	// Required: true
-	User interface{} `json:"user"`
+	User *int64 `json:"user"`
 }
 
 // Validate validates this create sub system permission dto
@@ -116,6 +116,15 @@ func (m *CreateSubSystemPermissionDto) validateSubsystem(formats strfmt.Registry
 
 	if err := validate.Required("subsystem", "body", m.Subsystem); err != nil {
 		return err
+	}
+
+	if m.Subsystem != nil {
+		if err := m.Subsystem.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("subsystem")
+			}
+			return err
+		}
 	}
 
 	return nil

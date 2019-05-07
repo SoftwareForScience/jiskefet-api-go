@@ -29,6 +29,13 @@ func (o *GetSettingReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetSettingNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -41,7 +48,7 @@ func NewGetSettingOK() *GetSettingOK {
 
 /*GetSettingOK handles this case with default header values.
 
-GetSettingOK get setting o k
+Succesfully returned the Settings.
 */
 type GetSettingOK struct {
 }
@@ -51,6 +58,27 @@ func (o *GetSettingOK) Error() string {
 }
 
 func (o *GetSettingOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewGetSettingNotFound creates a GetSettingNotFound with default headers values
+func NewGetSettingNotFound() *GetSettingNotFound {
+	return &GetSettingNotFound{}
+}
+
+/*GetSettingNotFound handles this case with default header values.
+
+No Settings were found.
+*/
+type GetSettingNotFound struct {
+}
+
+func (o *GetSettingNotFound) Error() string {
+	return fmt.Sprintf("[GET /setting][%d] getSettingNotFound ", 404)
+}
+
+func (o *GetSettingNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

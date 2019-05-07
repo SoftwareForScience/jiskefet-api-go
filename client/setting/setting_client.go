@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetSetting get setting API
+GetSetting returns settings for jiskefet UI
 */
 func (a *Client) GetSetting(params *GetSettingParams) (*GetSettingOK, error) {
 	// TODO: Validate the params before sending

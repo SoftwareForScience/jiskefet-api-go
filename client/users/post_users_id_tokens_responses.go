@@ -7,7 +7,6 @@ package users
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -23,8 +22,8 @@ type PostUsersIDTokensReader struct {
 func (o *PostUsersIDTokensReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 201:
-		result := NewPostUsersIDTokensCreated()
+	case 200:
+		result := NewPostUsersIDTokensOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -35,29 +34,23 @@ func (o *PostUsersIDTokensReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewPostUsersIDTokensCreated creates a PostUsersIDTokensCreated with default headers values
-func NewPostUsersIDTokensCreated() *PostUsersIDTokensCreated {
-	return &PostUsersIDTokensCreated{}
+// NewPostUsersIDTokensOK creates a PostUsersIDTokensOK with default headers values
+func NewPostUsersIDTokensOK() *PostUsersIDTokensOK {
+	return &PostUsersIDTokensOK{}
 }
 
-/*PostUsersIDTokensCreated handles this case with default header values.
+/*PostUsersIDTokensOK handles this case with default header values.
 
-PostUsersIDTokensCreated post users Id tokens created
+Succesfully created a Token.
 */
-type PostUsersIDTokensCreated struct {
-	Payload interface{}
+type PostUsersIDTokensOK struct {
 }
 
-func (o *PostUsersIDTokensCreated) Error() string {
-	return fmt.Sprintf("[POST /users/{id}/tokens][%d] postUsersIdTokensCreated  %+v", 201, o.Payload)
+func (o *PostUsersIDTokensOK) Error() string {
+	return fmt.Sprintf("[POST /users/{id}/tokens][%d] postUsersIdTokensOK ", 200)
 }
 
-func (o *PostUsersIDTokensCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+func (o *PostUsersIDTokensOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

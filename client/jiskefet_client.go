@@ -19,6 +19,7 @@ import (
 	"github.com/SoftwareForScience/jiskefet-api-go/client/runs"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/setting"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/subsystems"
+	"github.com/SoftwareForScience/jiskefet-api-go/client/tags"
 	"github.com/SoftwareForScience/jiskefet-api-go/client/users"
 )
 
@@ -80,6 +81,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Jiskefet {
 	cli.Setting = setting.New(transport, formats)
 
 	cli.Subsystems = subsystems.New(transport, formats)
+
+	cli.Tags = tags.New(transport, formats)
 
 	cli.Users = users.New(transport, formats)
 
@@ -143,6 +146,8 @@ type Jiskefet struct {
 
 	Subsystems *subsystems.Client
 
+	Tags *tags.Client
+
 	Users *users.Client
 
 	Transport runtime.ClientTransport
@@ -167,6 +172,8 @@ func (c *Jiskefet) SetTransport(transport runtime.ClientTransport) {
 	c.Setting.SetTransport(transport)
 
 	c.Subsystems.SetTransport(transport)
+
+	c.Tags.SetTransport(transport)
 
 	c.Users.SetTransport(transport)
 

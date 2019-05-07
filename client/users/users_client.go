@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetUsersID get users ID API
+GetUsersID retrieves a specific user
 */
 func (a *Client) GetUsersID(params *GetUsersIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersIDOK, error) {
 	// TODO: Validate the params before sending
@@ -54,7 +54,7 @@ func (a *Client) GetUsersID(params *GetUsersIDParams, authInfo runtime.ClientAut
 }
 
 /*
-GetUsersIDLogs get users ID logs API
+GetUsersIDLogs returns all logs for a specific user
 */
 func (a *Client) GetUsersIDLogs(params *GetUsersIDLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersIDLogsOK, error) {
 	// TODO: Validate the params before sending
@@ -83,7 +83,7 @@ func (a *Client) GetUsersIDLogs(params *GetUsersIDLogsParams, authInfo runtime.C
 }
 
 /*
-GetUsersIDTokens get users ID tokens API
+GetUsersIDTokens returns all generated tokens from a specific user
 */
 func (a *Client) GetUsersIDTokens(params *GetUsersIDTokensParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersIDTokensOK, error) {
 	// TODO: Validate the params before sending
@@ -112,9 +112,9 @@ func (a *Client) GetUsersIDTokens(params *GetUsersIDTokensParams, authInfo runti
 }
 
 /*
-PostUsersIDTokens post users ID tokens API
+PostUsersIDTokens creates a token and links it to a subsytem
 */
-func (a *Client) PostUsersIDTokens(params *PostUsersIDTokensParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersIDTokensCreated, error) {
+func (a *Client) PostUsersIDTokens(params *PostUsersIDTokensParams, authInfo runtime.ClientAuthInfoWriter) (*PostUsersIDTokensOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsersIDTokensParams()
@@ -136,7 +136,7 @@ func (a *Client) PostUsersIDTokens(params *PostUsersIDTokensParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostUsersIDTokensCreated), nil
+	return result.(*PostUsersIDTokensOK), nil
 
 }
 

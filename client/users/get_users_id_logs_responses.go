@@ -7,7 +7,6 @@ package users
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *GetUsersIDLogsReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetUsersIDLogsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewGetUsersIDLogsOK() *GetUsersIDLogsOK {
 
 /*GetUsersIDLogsOK handles this case with default header values.
 
-GetUsersIDLogsOK get users Id logs o k
+Succesfully returned Logs.
 */
 type GetUsersIDLogsOK struct {
-	Payload interface{}
 }
 
 func (o *GetUsersIDLogsOK) Error() string {
-	return fmt.Sprintf("[GET /users/{id}/logs][%d] getUsersIdLogsOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /users/{id}/logs][%d] getUsersIdLogsOK ", 200)
 }
 
 func (o *GetUsersIDLogsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewGetUsersIDLogsNotFound creates a GetUsersIDLogsNotFound with default headers values
+func NewGetUsersIDLogsNotFound() *GetUsersIDLogsNotFound {
+	return &GetUsersIDLogsNotFound{}
+}
+
+/*GetUsersIDLogsNotFound handles this case with default header values.
+
+No Logs found for this User.
+*/
+type GetUsersIDLogsNotFound struct {
+}
+
+func (o *GetUsersIDLogsNotFound) Error() string {
+	return fmt.Sprintf("[GET /users/{id}/logs][%d] getUsersIdLogsNotFound ", 404)
+}
+
+func (o *GetUsersIDLogsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

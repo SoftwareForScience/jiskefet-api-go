@@ -29,6 +29,13 @@ func (o *GetSubsystemsReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetSubsystemsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -41,7 +48,7 @@ func NewGetSubsystemsOK() *GetSubsystemsOK {
 
 /*GetSubsystemsOK handles this case with default header values.
 
-GetSubsystemsOK get subsystems o k
+Succesfully returned Subsystems.
 */
 type GetSubsystemsOK struct {
 }
@@ -51,6 +58,27 @@ func (o *GetSubsystemsOK) Error() string {
 }
 
 func (o *GetSubsystemsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewGetSubsystemsNotFound creates a GetSubsystemsNotFound with default headers values
+func NewGetSubsystemsNotFound() *GetSubsystemsNotFound {
+	return &GetSubsystemsNotFound{}
+}
+
+/*GetSubsystemsNotFound handles this case with default header values.
+
+No Subsystems found.
+*/
+type GetSubsystemsNotFound struct {
+}
+
+func (o *GetSubsystemsNotFound) Error() string {
+	return fmt.Sprintf("[GET /subsystems][%d] getSubsystemsNotFound ", 404)
+}
+
+func (o *GetSubsystemsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

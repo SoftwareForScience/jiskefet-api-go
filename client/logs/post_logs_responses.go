@@ -12,6 +12,8 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/SoftwareForScience/jiskefet-api-go/models"
 )
 
 // PostLogsReader is a Reader for the PostLogs structure.
@@ -30,6 +32,13 @@ func (o *PostLogsReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return result, nil
 
+	case 409:
+		result := NewPostLogsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,10 +51,10 @@ func NewPostLogsCreated() *PostLogsCreated {
 
 /*PostLogsCreated handles this case with default header values.
 
-PostLogsCreated post logs created
+Succesfully created a Log
 */
 type PostLogsCreated struct {
-	Payload interface{}
+	Payload *models.Log
 }
 
 func (o *PostLogsCreated) Error() string {
@@ -54,10 +63,33 @@ func (o *PostLogsCreated) Error() string {
 
 func (o *PostLogsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.Log)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
+
+	return nil
+}
+
+// NewPostLogsConflict creates a PostLogsConflict with default headers values
+func NewPostLogsConflict() *PostLogsConflict {
+	return &PostLogsConflict{}
+}
+
+/*PostLogsConflict handles this case with default header values.
+
+A Log already exists with this ID.
+*/
+type PostLogsConflict struct {
+}
+
+func (o *PostLogsConflict) Error() string {
+	return fmt.Sprintf("[POST /logs][%d] postLogsConflict ", 409)
+}
+
+func (o *PostLogsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

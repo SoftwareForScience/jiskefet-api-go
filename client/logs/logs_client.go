@@ -25,7 +25,7 @@ type Client struct {
 }
 
 /*
-GetLogs get logs API
+GetLogs returns all logs
 */
 func (a *Client) GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLogsOK, error) {
 	// TODO: Validate the params before sending
@@ -54,7 +54,7 @@ func (a *Client) GetLogs(params *GetLogsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-GetLogsID get logs ID API
+GetLogsID returns a specific log
 */
 func (a *Client) GetLogsID(params *GetLogsIDParams, authInfo runtime.ClientAuthInfoWriter) (*GetLogsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -83,9 +83,38 @@ func (a *Client) GetLogsID(params *GetLogsIDParams, authInfo runtime.ClientAuthI
 }
 
 /*
-PatchLogsIDRuns patch logs ID runs API
+GetLogsIDThreads get logs ID threads API
 */
-func (a *Client) PatchLogsIDRuns(params *PatchLogsIDRunsParams, authInfo runtime.ClientAuthInfoWriter) (*PatchLogsIDRunsOK, error) {
+func (a *Client) GetLogsIDThreads(params *GetLogsIDThreadsParams, authInfo runtime.ClientAuthInfoWriter) (*GetLogsIDThreadsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLogsIDThreadsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetLogsIDThreads",
+		Method:             "GET",
+		PathPattern:        "/logs/{id}/threads",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &GetLogsIDThreadsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLogsIDThreadsOK), nil
+
+}
+
+/*
+PatchLogsIDRuns links a run to a specific log
+*/
+func (a *Client) PatchLogsIDRuns(params *PatchLogsIDRunsParams, authInfo runtime.ClientAuthInfoWriter) (*PatchLogsIDRunsNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchLogsIDRunsParams()
@@ -107,12 +136,12 @@ func (a *Client) PatchLogsIDRuns(params *PatchLogsIDRunsParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchLogsIDRunsOK), nil
+	return result.(*PatchLogsIDRunsNoContent), nil
 
 }
 
 /*
-PostLogs post logs API
+PostLogs creates a log
 */
 func (a *Client) PostLogs(params *PostLogsParams, authInfo runtime.ClientAuthInfoWriter) (*PostLogsCreated, error) {
 	// TODO: Validate the params before sending
@@ -137,6 +166,64 @@ func (a *Client) PostLogs(params *PostLogsParams, authInfo runtime.ClientAuthInf
 		return nil, err
 	}
 	return result.(*PostLogsCreated), nil
+
+}
+
+/*
+PostLogsIDAttachments creates a attachment for a specific log
+*/
+func (a *Client) PostLogsIDAttachments(params *PostLogsIDAttachmentsParams, authInfo runtime.ClientAuthInfoWriter) (*PostLogsIDAttachmentsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostLogsIDAttachmentsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostLogsIDAttachments",
+		Method:             "POST",
+		PathPattern:        "/logs/{id}/attachments",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostLogsIDAttachmentsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostLogsIDAttachmentsCreated), nil
+
+}
+
+/*
+PostLogsThreads post logs threads API
+*/
+func (a *Client) PostLogsThreads(params *PostLogsThreadsParams, authInfo runtime.ClientAuthInfoWriter) (*PostLogsThreadsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostLogsThreadsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostLogsThreads",
+		Method:             "POST",
+		PathPattern:        "/logs/threads",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &PostLogsThreadsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostLogsThreadsCreated), nil
 
 }
 

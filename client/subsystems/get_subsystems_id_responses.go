@@ -7,7 +7,6 @@ package subsystems
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -30,6 +29,13 @@ func (o *GetSubsystemsIDReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return result, nil
 
+	case 404:
+		result := NewGetSubsystemsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -42,22 +48,37 @@ func NewGetSubsystemsIDOK() *GetSubsystemsIDOK {
 
 /*GetSubsystemsIDOK handles this case with default header values.
 
-GetSubsystemsIDOK get subsystems Id o k
+Succesfully returned a Subsystem with given ID.
 */
 type GetSubsystemsIDOK struct {
-	Payload interface{}
 }
 
 func (o *GetSubsystemsIDOK) Error() string {
-	return fmt.Sprintf("[GET /subsystems/{id}][%d] getSubsystemsIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /subsystems/{id}][%d] getSubsystemsIdOK ", 200)
 }
 
 func (o *GetSubsystemsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
+	return nil
+}
+
+// NewGetSubsystemsIDNotFound creates a GetSubsystemsIDNotFound with default headers values
+func NewGetSubsystemsIDNotFound() *GetSubsystemsIDNotFound {
+	return &GetSubsystemsIDNotFound{}
+}
+
+/*GetSubsystemsIDNotFound handles this case with default header values.
+
+There is no Subsystem with the given ID.
+*/
+type GetSubsystemsIDNotFound struct {
+}
+
+func (o *GetSubsystemsIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /subsystems/{id}][%d] getSubsystemsIdNotFound ", 404)
+}
+
+func (o *GetSubsystemsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

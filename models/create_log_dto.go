@@ -32,9 +32,9 @@ type CreateLogDto struct {
 	// Enum: [human process]
 	Origin *string `json:"origin"`
 
-	// Attached run numbers of this log
+	// Attached run number of this log
 	// Required: true
-	Runs []string `json:"runs"`
+	Run *int64 `json:"run"`
 
 	// What kind of log is it?
 	// Required: true
@@ -66,7 +66,7 @@ func (m *CreateLogDto) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRuns(formats); err != nil {
+	if err := m.validateRun(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -149,9 +149,9 @@ func (m *CreateLogDto) validateOrigin(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CreateLogDto) validateRuns(formats strfmt.Registry) error {
+func (m *CreateLogDto) validateRun(formats strfmt.Registry) error {
 
-	if err := validate.Required("runs", "body", m.Runs); err != nil {
+	if err := validate.Required("run", "body", m.Run); err != nil {
 		return err
 	}
 

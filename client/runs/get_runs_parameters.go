@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -21,8 +22,8 @@ import (
 // with the default values initialized.
 func NewGetRunsParams() *GetRunsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetRunsParams{
 		PageNumber: &pageNumberDefault,
@@ -36,8 +37,8 @@ func NewGetRunsParams() *GetRunsParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetRunsParamsWithTimeout(timeout time.Duration) *GetRunsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetRunsParams{
 		PageNumber: &pageNumberDefault,
@@ -51,8 +52,8 @@ func NewGetRunsParamsWithTimeout(timeout time.Duration) *GetRunsParams {
 // with the default values initialized, and the ability to set a context for a request
 func NewGetRunsParamsWithContext(ctx context.Context) *GetRunsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetRunsParams{
 		PageNumber: &pageNumberDefault,
@@ -66,8 +67,8 @@ func NewGetRunsParamsWithContext(ctx context.Context) *GetRunsParams {
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRunsParamsWithHTTPClient(client *http.Client) *GetRunsParams {
 	var (
-		pageNumberDefault = string("1")
-		pageSizeDefault   = string("25")
+		pageNumberDefault = int64(1)
+		pageSizeDefault   = int64(25)
 	)
 	return &GetRunsParams{
 		PageNumber: &pageNumberDefault,
@@ -120,17 +121,17 @@ type GetRunsParams struct {
 	  The current page, i.e. the offset in the result set based on pageSize.
 
 	*/
-	PageNumber *string
+	PageNumber *int64
 	/*PageSize
 	  The maximum amount of logs in each result.
 
 	*/
-	PageSize *string
+	PageSize *int64
 	/*RunNumber
 	  The id of the log.
 
 	*/
-	RunNumber *string
+	RunNumber *int64
 	/*RunQuality
 	  The quality of the run.
 
@@ -278,35 +279,35 @@ func (o *GetRunsParams) SetOrderDirection(orderDirection *string) {
 }
 
 // WithPageNumber adds the pageNumber to the get runs params
-func (o *GetRunsParams) WithPageNumber(pageNumber *string) *GetRunsParams {
+func (o *GetRunsParams) WithPageNumber(pageNumber *int64) *GetRunsParams {
 	o.SetPageNumber(pageNumber)
 	return o
 }
 
 // SetPageNumber adds the pageNumber to the get runs params
-func (o *GetRunsParams) SetPageNumber(pageNumber *string) {
+func (o *GetRunsParams) SetPageNumber(pageNumber *int64) {
 	o.PageNumber = pageNumber
 }
 
 // WithPageSize adds the pageSize to the get runs params
-func (o *GetRunsParams) WithPageSize(pageSize *string) *GetRunsParams {
+func (o *GetRunsParams) WithPageSize(pageSize *int64) *GetRunsParams {
 	o.SetPageSize(pageSize)
 	return o
 }
 
 // SetPageSize adds the pageSize to the get runs params
-func (o *GetRunsParams) SetPageSize(pageSize *string) {
+func (o *GetRunsParams) SetPageSize(pageSize *int64) {
 	o.PageSize = pageSize
 }
 
 // WithRunNumber adds the runNumber to the get runs params
-func (o *GetRunsParams) WithRunNumber(runNumber *string) *GetRunsParams {
+func (o *GetRunsParams) WithRunNumber(runNumber *int64) *GetRunsParams {
 	o.SetRunNumber(runNumber)
 	return o
 }
 
 // SetRunNumber adds the runNumber to the get runs params
-func (o *GetRunsParams) SetRunNumber(runNumber *string) {
+func (o *GetRunsParams) SetRunNumber(runNumber *int64) {
 	o.RunNumber = runNumber
 }
 
@@ -499,11 +500,11 @@ func (o *GetRunsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	if o.PageNumber != nil {
 
 		// query param pageNumber
-		var qrPageNumber string
+		var qrPageNumber int64
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
-		qPageNumber := qrPageNumber
+		qPageNumber := swag.FormatInt64(qrPageNumber)
 		if qPageNumber != "" {
 			if err := r.SetQueryParam("pageNumber", qPageNumber); err != nil {
 				return err
@@ -515,11 +516,11 @@ func (o *GetRunsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	if o.PageSize != nil {
 
 		// query param pageSize
-		var qrPageSize string
+		var qrPageSize int64
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
-		qPageSize := qrPageSize
+		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
 			if err := r.SetQueryParam("pageSize", qPageSize); err != nil {
 				return err
@@ -531,11 +532,11 @@ func (o *GetRunsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	if o.RunNumber != nil {
 
 		// query param runNumber
-		var qrRunNumber string
+		var qrRunNumber int64
 		if o.RunNumber != nil {
 			qrRunNumber = *o.RunNumber
 		}
-		qRunNumber := qrRunNumber
+		qRunNumber := swag.FormatInt64(qrRunNumber)
 		if qRunNumber != "" {
 			if err := r.SetQueryParam("runNumber", qRunNumber); err != nil {
 				return err

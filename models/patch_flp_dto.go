@@ -29,7 +29,7 @@ type PatchFlpDto struct {
 	// Required: true
 	NSubTimeframes *int64 `json:"nSubTimeframes"`
 
-	// data volume out from the readout 'recording' component in bytes. Can reach PetaBytes. Updated regularly.
+	// data volume out from the readout 'recording' component in bytes.Can reach PetaBytes. Updated regularly.
 	// Required: true
 	RecordingBytes *int64 `json:"recordingBytes"`
 }
