@@ -7,6 +7,7 @@ package tags
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
@@ -51,13 +52,19 @@ func NewGetTagsOK() *GetTagsOK {
 Successfully returned all Tags.
 */
 type GetTagsOK struct {
+	Payload interface{}
 }
 
 func (o *GetTagsOK) Error() string {
-	return fmt.Sprintf("[GET /tags][%d] getTagsOK ", 200)
+	return fmt.Sprintf("[GET /tags][%d] getTagsOK  %+v", 200, o.Payload)
 }
 
 func (o *GetTagsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

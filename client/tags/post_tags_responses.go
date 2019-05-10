@@ -12,8 +12,6 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/SoftwareForScience/jiskefet-api-go/models"
 )
 
 // PostTagsReader is a Reader for the PostTags structure.
@@ -54,7 +52,7 @@ func NewPostTagsCreated() *PostTagsCreated {
 Succesfully created a Tag
 */
 type PostTagsCreated struct {
-	Payload *models.Tag
+	Payload interface{}
 }
 
 func (o *PostTagsCreated) Error() string {
@@ -63,10 +61,8 @@ func (o *PostTagsCreated) Error() string {
 
 func (o *PostTagsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.Tag)
-
 	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
