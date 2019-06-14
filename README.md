@@ -27,5 +27,7 @@ To (re)generate the client code:
 ```
 go get -u -v github.com/go-swagger/go-swagger/cmd/swagger
 cd $GOPATH/src/github.com/SoftwareForScience/jiskefet-api-go
+git submodule init
+git submodule update
 ~/go/bin/swagger generate client --spec=jiskefet-openapi-spec/openapi-spec.yaml
 ```
