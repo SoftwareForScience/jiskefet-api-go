@@ -1,6 +1,7 @@
 # Jiskefet Go Client API
 This is a Go client API for Jiskefet based on the go-swagger code generator (https://goswagger.io)
 
+Note: this repo contains a submodule `jiskefet-openapi-spec` that should point towards the spec that was used to generate it.
 
 ## Setup
 ```
