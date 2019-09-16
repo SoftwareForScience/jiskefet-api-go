@@ -98,10 +98,9 @@ func main() {
 
 	{
 		params := runs.NewGetRunsParams()
-		resp, err := client.GetRuns(params, bearerTokenAuth)
+		_, err := client.GetRuns(params, bearerTokenAuth)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("%#v\n", resp.Payload)
 	}
 }
