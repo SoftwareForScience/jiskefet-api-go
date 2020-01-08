@@ -23,7 +23,11 @@ go run main.go
 
 
 ## Code generation
-A submodule is kept which points to the openapi-spec version which was used to generate the API.
+First, the yaml file needs to be generated from the api-doc, run the following command:
+```
+bash generate-yaml.sh url/of/api/doc
+```
+
 To (re)generate the client code:
 ```
 go get -u -v github.com/go-swagger/go-swagger/cmd/swagger
@@ -31,5 +35,5 @@ cd $GOPATH/src/github.com/SoftwareForScience/jiskefet-api-go
 git submodule init
 git submodule update
 go get -u -f ./..
-$GOPATH/bin/swagger generate client --spec=jiskefet-openapi-spec/openapi-spec.yaml
+$GOPATH/bin/swagger generate client --spec=doc.yaml
 ```
