@@ -28,6 +28,9 @@ First, the yaml file needs to be generated from the api-doc, run the following c
 bash generate-yaml.sh url/of/api/doc
 ```
 
+Note: sometimes the generation f^cks up, in this case, you'll nee to manually change the lines using editor.swagger.io.  
+
+
 To (re)generate the client code:
 ```
 go get -u -v github.com/go-swagger/go-swagger/cmd/swagger
